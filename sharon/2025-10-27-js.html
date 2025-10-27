@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics Review</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        
+        .concept {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+        }
+        
+        .tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 12px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+        }
+        
+        ul {
+            margin: 10px 0;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Basics Review</h1>
+    <p>Welcome! This page reviews the JavaScript concepts we covered in our lesson. Take your time reading through each section.</p>
+
+    <div class="concept">
+        <h2>🎯 The Three Data Types</h2>
+        <p>In JavaScript, we work with three basic types of data:</p>
+        
+        <h3>1. Strings (text)</h3>
+        <p>Strings are text wrapped in quotes. You can use single quotes, double quotes, or backticks:</p>
+        <pre>let teacher = "Doug"
+let student = 'Sharon'
+let message = `Hello there`</pre>
+        
+        <div class="tip">
+            <strong>Tip:</strong> Use double quotes inside single quotes, or use a backslash: <code>"The cat says \"meow\""</code>
+        </div>
+
+        <h3>2. Numbers</h3>
+        <p>Numbers don't need quotes. They can be positive, negative, or decimals:</p>
+        <pre>let year = 2025
+let temp = -5
+let pi = 3.14
+let nothing = 0</pre>
+
+        <h3>3. Booleans (true or false)</h3>
+        <p>Booleans are either <code>true</code> or <code>false</code> (no quotes!):</p>
+        <pre>let isRaining = true
+let isSunny = false</pre>
+        
+        <div class="note">
+            <strong>Important:</strong> <code>true</code> is a boolean, but <code>"true"</code> is a string!
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>📦 Variables</h2>
+        <p>Variables are like labeled boxes that store data. There are two ways to create them:</p>
+        
+        <h3>let (can change)</h3>
+        <pre>let mood = "happy"
+mood = "excited"  // This works!</pre>
+
+        <h3>const (cannot change)</h3>
+        <pre>const name = "Sharon"
+// name = "Bob"  // This would cause an error!</pre>
+
+        <div class="tip">
+            <strong>Tip:</strong> Use <code>const</code> when the value shouldn't change, and <code>let</code> when it might change.
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>🔄 Reassigning Variables</h2>
+        <p>With <code>let</code>, you can change a variable's value:</p>
+        
+        <h3>Simple reassignment</h3>
+        <pre>let score = 10
+score = 20  // score is now 20</pre>
+
+        <h3>Changing numbers</h3>
+        <p>There are several ways to increase or decrease a number:</p>
+        <pre>let temp = 10
+
+// All of these add 1:
+temp = temp + 1
+temp += 1
+temp++
+
+// All of these add 5:
+temp = temp + 5
+temp += 5
+
+// Subtracting works the same way:
+temp = temp - 3
+temp -= 3
+temp--  // subtracts 1</pre>
+
+        <div class="example">
+            <strong>Example:</strong> If <code>temp</code> starts at 10, and you do <code>temp += 5</code>, then <code>temp</code> becomes 15.
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>🎨 Naming Variables</h2>
+        <p>Variable names should be clear and use camelCase:</p>
+        <pre>// Good names (camelCase):
+let userName = "Sharon"
+let totalScore = 100
+let isGameOver = false
+
+// Avoid these styles in JavaScript:
+let user_name = "Sharon"    // snake_case
+let UserName = "Sharon"      // PascalCase</pre>
+
+        <div class="tip">
+            <strong>Tip:</strong> Start with a lowercase letter, and capitalize the first letter of each new word.
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>🛠️ Methods</h2>
+        <p>Methods are actions you can perform on certain data types. Different types have different methods:</p>
+        
+        <h3>String methods</h3>
+        <pre>let name = "sharon"
+console.log(name.toUpperCase())  // prints: SHARON</pre>
+
+        <h3>What happens with wrong types?</h3>
+        <pre>let age = 25
+// age.toUpperCase()  // ERROR! Numbers don't have this method</pre>
+
+        <div class="note">
+            <strong>Remember:</strong> Methods only work on certain data types. Strings have string methods, numbers have number methods, etc.
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>🐛 Reading Errors</h2>
+        <p>When something goes wrong, Node.js tells you with an error message. Here's what to look for:</p>
+        
+        <div class="example">
+            <strong>Example error:</strong>
+            <pre>TypeError: age.toUpperCase is not a function
+    at script.js:23:10</pre>
+            
+            <p><strong>What it means:</strong></p>
+            <ul>
+                <li><code>TypeError</code> - The type of error</li>
+                <li><code>age.toUpperCase is not a function</code> - What went wrong</li>
+                <li><code>script.js:23</code> - The file and line number where the error happened</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <strong>Tip:</strong> Always read the line number in the error message. It tells you exactly where to look!
+        </div>
+    </div>
+
+    <div class="concept">
+        <h2>📝 Practice Ideas</h2>
+        <p>Try these exercises in your script file with Node.js:</p>
+        <ul>
+            <li>Create variables with your name, age, and favorite color</li>
+            <li>Make a number variable and practice adding/subtracting from it</li>
+            <li>Create a string and try using <code>.toUpperCase()</code> and <code>.toLowerCase()</code></li>
+            <li>Try to use a string method on a number and read the error message</li>
+        </ul>
+    </div>
+
+    <div class="concept">
+        <h2>🚀 What's Next?</h2>
+        <p>After you're comfortable with these concepts, you'll learn:</p>
+        <ul>
+            <li><strong>Operators</strong> - Math operations (+, -, *, /) and comparisons (>, <, ===)</li>
+            <li><strong>If statements</strong> - Making decisions in your code</li>
+            <li><strong>Loops</strong> - Repeating actions multiple times</li>
+        </ul>
+        <p>Take your time! There's no rush to move on until you feel ready.</p>
+    </div>
+
+</body>
+</html>
