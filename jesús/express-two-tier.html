@@ -194,11 +194,14 @@
         <header>
             <h1 class="lang-content active" data-lang="en">Understanding Express + React Deployment</h1>
             <h1 class="lang-content" data-lang="es">Entendiendo el Despliegue de Express + React</h1>
+            <h1 class="lang-content" data-lang="ca">Entenent el Desplegament d'Express + React</h1>
             <p class="lang-content active" data-lang="en">How to serve a React frontend from an Express backend</p>
             <p class="lang-content" data-lang="es">Cómo servir un frontend de React desde un backend de Express</p>
+            <p class="lang-content" data-lang="ca">Com servir un frontend de React des d'un backend d'Express</p>
             <div class="lang-toggle">
                 <button class="lang-btn active" onclick="setLanguage('en')">English</button>
                 <button class="lang-btn" onclick="setLanguage('es')">Español</button>
+                <button class="lang-btn" onclick="setLanguage('ca')">Català</button>
             </div>
         </header>
 
@@ -438,6 +441,126 @@ app.use(express.static("../frontend/dist"));</div>
                             <li>Mismo dominio para frontend y backend</li>
                             <li>Más fácil de gestionar en producción</li>
                             <li>Económico (un servidor en lugar de dos)</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CATALAN CONTENT -->
+            <div class="lang-content" data-lang="ca">
+                <section>
+                    <h2>La Visió General</h2>
+                    <p>Tens dues aplicacions separades que necessiten treballar juntes com una:</p>
+                    <div class="diagram">
+                        <div class="box backend">Backend (Express)</div>
+                        <span class="arrow">+</span>
+                        <div class="box frontend">Frontend (React)</div>
+                        <span class="arrow">→</span>
+                        <div class="box combined">Desplegament Únic</div>
+                    </div>
+                    <p>L'objectiu és fer que Express serveixi tant els endpoints de l'API COM l'aplicació React des de la mateixa URL.</p>
+                </section>
+
+                <section>
+                    <h2>Explicació Pas a Pas</h2>
+
+                    <h3><span class="step-number">1</span>Configuració dels Scripts de Construcció</h3>
+                    <div class="code-block">"scripts": {
+  "install-backend": "cd backend && npm install && cd ..",
+  "install-frontend": "cd frontend && npm install && cd ..",
+  "install-both": "npm run install-backend && npm run install-frontend",
+  "build": "npm run install-both && cd frontend && npm run build && cd ..",
+  "start": "cd backend && node index"
+}</div>
+                    <p><strong>Què passa aquí:</strong></p>
+                    <ul>
+                        <li><span class="highlight">install-backend</span>: Navega a la carpeta backend, instal·la dependències, torna a l'arrel</li>
+                        <li><span class="highlight">install-frontend</span>: Navega a la carpeta frontend, instal·la dependències, torna a l'arrel</li>
+                        <li><span class="highlight">install-both</span>: Executa ambdues comandes d'instal·lació</li>
+                        <li><span class="highlight">build</span>: Instal·la tot, després construeix l'app React en fitxers de producció</li>
+                        <li><span class="highlight">start</span>: Inicia el servidor Express</li>
+                    </ul>
+
+                    <h3><span class="step-number">2</span>Procés de Construcció de React</h3>
+                    <p>Quan executes <span class="highlight">npm run build</span> al frontend, React crea fitxers de producció optimitzats a la carpeta <span class="highlight">dist</span>:</p>
+                    <div class="code-block">frontend/dist/
+  ├── index.html
+  ├── assets/
+  │   ├── index-abc123.js
+  │   └── index-xyz789.css
+  └── ...</div>
+                    <p>Aquests són fitxers estàtics que poden ser servits per qualsevol servidor web - incloent Express!</p>
+
+                    <h3><span class="step-number">3</span>Express Servint Fitxers Estàtics</h3>
+                    <div class="code-block">const reactHtml = path.join(import.meta.dirname, "../frontend/dist/index.html");
+
+// Servir l'index.html de React per la ruta arrel
+for (const route of frontendRoutes) {
+  app.get(route, (req, res) => {
+    res.sendFile(reactHtml);
+  });
+}
+
+// Servir tots els altres fitxers estàtics (JS, CSS, imatges)
+app.use(express.static("../frontend/dist"));</div>
+
+                    <div class="important">
+                        <strong>🔑 Concepte Clau:</strong> Express ara té DOS treballs:
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Servidor API</strong>: Gestionar rutes API com <span class="highlight">/api/users</span></li>
+                            <li><strong>Servidor de Fitxers</strong>: Servir els fitxers de l'aplicació React</li>
+                        </ul>
+                    </div>
+
+                    <h3><span class="step-number">4</span>Com Funciona en Detall</h3>
+                    <p><strong>Resolució de rutes:</strong></p>
+                    <p><span class="highlight">import.meta.dirname</span> dona el directori actual (carpeta backend). Pugem un nivell amb <span class="highlight">..</span> i entrem a <span class="highlight">frontend/dist</span> per trobar els fitxers React construïts.</p>
+
+                    <p><strong>Gestió de rutes:</strong></p>
+                    <p>L'array <span class="highlight">frontendRoutes</span> (actualment només <span class="highlight">["/"]</span>) defineix quines URLs han de servir l'<span class="highlight">index.html</span> de l'app React. Aquest és el punt d'entrada a la teva aplicació React.</p>
+
+                    <p><strong>Middleware de fitxers estàtics:</strong></p>
+                    <p><span class="highlight">express.static("../frontend/dist")</span> serveix automàticament tots els fitxers de la carpeta dist. Quan l'index.html de React sol·licita <span class="highlight">/assets/index-abc123.js</span>, Express el troba i serveix.</p>
+                </section>
+
+                <section>
+                    <h2>Exemple de Flux de Sol·licitud</h2>
+                    <p><strong>L'usuari visita http://latuaapp.com/</strong></p>
+                    <ol>
+                        <li>Express rep la sol·licitud</li>
+                        <li>Coincideix amb la ruta <span class="highlight">/</span></li>
+                        <li>Envia <span class="highlight">frontend/dist/index.html</span></li>
+                        <li>El navegador carrega index.html</li>
+                        <li>El navegador sol·licita fitxers JavaScript/CSS</li>
+                        <li>Express els serveix des de <span class="highlight">frontend/dist</span> via middleware estàtic</li>
+                        <li>L'app React es carrega i s'executa al navegador!</li>
+                    </ol>
+
+                    <p style="margin-top: 20px;"><strong>L'usuari fa una sol·licitud API a /api/data</strong></p>
+                    <ol>
+                        <li>Express rep la sol·licitud</li>
+                        <li>Verifica rutes - no hi ha coincidència amb fitxer estàtic</li>
+                        <li>Coincideix amb el teu gestor de ruta API</li>
+                        <li>Retorna dades JSON</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Procés de Desplegament</h2>
+                    <p><strong>A la teva plataforma de desplegament (com Render, Heroku, etc.):</strong></p>
+                    <ol>
+                        <li>Executa <span class="highlight">npm run build</span> - Instal·la dependències i construeix React</li>
+                        <li>Executa <span class="highlight">npm start</span> - Inicia el servidor Express</li>
+                        <li>Express serveix tot des d'un port/URL</li>
+                    </ol>
+
+                    <div class="important">
+                        <strong>💡 Per què aquest enfocament?</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Desplegament únic - sense problemes de CORS</li>
+                            <li>Mateix domini per frontend i backend</li>
+                            <li>Més fàcil de gestionar en producció</li>
+                            <li>Econòmic (un servidor en lloc de dos)</li>
                         </ul>
                     </div>
                 </section>
