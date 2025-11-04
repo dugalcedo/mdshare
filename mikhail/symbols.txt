@@ -1,0 +1,63 @@
+Brackets
+()      parentheses (US), or round brackets (UK)
+[]      square brackets
+{}      curly brckets
+<>      angle brackets
+
+Punctuation
+.       period or dot
+,       comma
+;       semicolon
+:       colon
+-       dash or hyphen (but minus in math)
+!       exclamation point or exclamation mark
+?       question mark
+
+Quotes and accent marks
+"       double quote (US), or double speech-mark (UK)
+'       apostrophe, or single quote (US), or single speech-mark(UK)
+`       backtic
+        (only programmers call it this.
+        Otherwise, most english speakers don't know)
+
+Most English speakers don't know the names of these either
+~       tilde
+^       caret
+¨       umlaut
+
+Other
+|       pipe
+/       slash, or forward slash
+\       backslash
+_       underscore
+*       star or asterisk
+@       at-sign or at-symbol
+#       number sign, hashtag, or pound sign (old-fashioned)
+%       percent (but modulus or modulo in programming)
+&       and-sign or ampersand
+
+Math
+        Name of symbol      Name of mathematical operation
+=       equals-sign
++       plus                addition
+-       minus               subtraction
+/       slash               division
+÷       division sign       division
+        (not used in programming)
+*       star or asterisk    multiplication
+×       times               multiplication
+        (not used in programming)
+
+Comparison
+<       less-than
+<=      less-than-or-equal-to
+>       greater-than
+>=      greater-than-or-equal-to
+==      is-equal-to
+        (is-loosely-equal-to in javascript/typescript)
+!=      is-not-equal-to
+        (is-not-loosely-equal-to in javascript/typescript)
+===     is-strictly-equal-to
+        (javascript/typescript only)
+!==     is-not-strictly-equal-to
+        (javascript/typescript only)
