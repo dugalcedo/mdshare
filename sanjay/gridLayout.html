@@ -7,6 +7,10 @@
 
     <!-- Embedded CSS (Separate file is preferred, but for ease of teaching, I'm using a style element) -->
     <style>
+        body {
+            font-family: sans-serif;
+        }
+
         #layout {
             display: grid;
             grid-template-columns: 1fr 3fr 1fr; /* Could also be repeat(3, 1fr) */
@@ -24,6 +28,43 @@
             padding: 1rem;
             border-radius: 1rem;
         }
+
+        .notice-me {
+            font-weight: bold;
+            font-size: 1.5rem;
+            animation: rainbow infinite linear 7s;
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-color: red;
+                color: white;
+            }
+            14% {
+                background-color: orange;
+                color: black;
+            }
+            28% {
+                background-color: yellow;
+                color: black;
+            }
+            42% {
+                background-color: green;
+                color: white;
+            }
+            56% {
+                background-color: blue;
+                color: white;
+            }
+            70% {
+                background-color: purple;
+                color: white;
+            }
+            84% {
+                background-color: pink;
+                color: black;
+            }
+        }
     </style>
 
 </head>
@@ -32,7 +73,7 @@
     <!-- Header. Not part of the layout grid. -->
     <header>
         <h1>Grid-based layout example</h1>
-        <p>Press CTRL+U to see the code! (CMD+U if on mac)</p>
+        <p class="notice-me">Press CTRL+U to see the code! (CMD+U if on mac)</p>
     </header>
 
     <!-- This is the grid! -->
@@ -63,6 +104,24 @@
             <h3>The main section</h3>
             <h4>Something to note:</h4>
             <p>The semantic elements &lt;aside&gt; and &lt;main&gt; are arbitrary. It would work the same if they were divs. We use semantic elements for 1) Accessibility, 2) Better code readability, and 3) Search-engine optimization.</p>
+
+            <p>THIS:</p>
+
+            <pre>
+&lt;aside&gt;&lt;/aside&gt;
+&lt;main&gt;&lt;/main&gt;
+&lt;aside&gt;&lt;/aside&gt;
+            </pre>
+
+            <p>IS BETTER THAN THIS:</p>
+
+            <pre>
+&lt;div class="aside"&gt;&lt;/div&gt;
+&lt;div class="main"&gt;&lt;/div&gt;
+&lt;div class="aside"&gt;&lt;/div&gt;
+            </pre>
+
+            <p>...even if they achieve the same goal.</p>
 
             <h3>Some more content</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa consequuntur facere placeat. Modi molestias, atque placeat incidunt sequi voluptates quasi maiores voluptas consectetur voluptatum natus, recusandae reprehenderit magni culpa qui!</p>
