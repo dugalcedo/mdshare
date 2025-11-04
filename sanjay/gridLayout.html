@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid-layout example</title>
+
+    <!-- Embedded CSS (Separate file is preferred, but for ease of teaching, I'm using a style element) -->
+    <style>
+        #layout {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr; /* Could also be repeat(3, 1fr) */
+            gap: 2rem; /* Ensures at least a 2rem gap between each grid item */
+        }
+
+        aside {
+            background-color: lightblue;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        main {
+            background-color: lightgreen;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Header. Not part of the layout grid. -->
+    <header>
+        <h1>Grid-based layout example</h1>
+        <p>Press CTRL+U to see the code! (CMD+U if on mac)</p>
+    </header>
+
+    <!-- This is the grid! -->
+    <div id="layout">
+
+        <!-- The first grid item -->
+        <aside>
+            <h3>Sidebar 1</h3>
+            <h4>Unordered list</h4>
+            <ul>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+            </ul>
+            <h4>Ordered list</h4>
+            <ol>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+            </ol>
+        </aside>
+
+        <!-- The second grid item -->
+        <main>
+            <h3>The main section</h3>
+            <h4>Something to note:</h4>
+            <p>The semantic elements &lt;aside&gt; and &lt;main&gt; are arbitrary. It would work the same if they were divs. We use semantic elements for 1) Accessibility, 2) Better code readability, and 3) Search-engine optimization.</p>
+
+            <h3>Some more content</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa consequuntur facere placeat. Modi molestias, atque placeat incidunt sequi voluptates quasi maiores voluptas consectetur voluptatum natus, recusandae reprehenderit magni culpa qui!</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, alias iusto nihil soluta blanditiis dignissimos ipsa debitis tempore mollitia perspiciatis nulla doloribus vitae, deleniti possimus quas rem magni impedit? Consequatur dolore necessitatibus neque doloribus soluta in corrupti quisquam maiores expedita, explicabo reiciendis autem minima! Ex, quam quae nisi eius molestias vitae non beatae? Totam commodi possimus magnam, aspernatur quam ullam corporis! Labore quos sunt laudantium. Accusamus sapiente ducimus aliquid animi quae ex. Excepturi sint porro ducimus consequatur velit voluptatibus id delectus neque voluptate at incidunt exercitationem quasi placeat culpa, rem quam ratione quibusdam corporis facilis dolore error dignissimos? Porro, voluptatem!</p>
+        </main>
+
+        <!-- The third grid item -->
+        <aside>
+            <h3>Sidebar 2</h3>
+
+            <h4>Description list</h4>
+            <p>(An uncommon HTML element)</p>
+            <dl>
+                <dt>Description list title</dt>
+                <dd>Description list description</dd>
+                <dt>Description list title</dt>
+                <dd>Description list description</dd>
+                <dt>Description list title</dt>
+                <dd>Description list description</dd>
+                <dt>Description list title</dt>
+                <dd>Description list description</dd>
+                <dt>Description list title</dt>
+                <dd>Description list description</dd>
+            </dl>
+
+            <h4>Table</h4>
+
+            <table border="1">
+                <tr>
+                    <th>Country</th>
+                    <th>Capital</th>
+                    <th>Largest City</th>
+                    <th>Language</th>
+                </tr>
+                <tr>
+                    <th>United States</th>
+                    <td>Washington D.C.</td>
+                    <td>New York City</td>
+                    <td rowspan="2">English</td>
+                </tr>
+                <tr>
+                    <th>United Kingdom</th>
+                    <td colspan="2">London</td>
+                </tr>
+                <tr>
+                    <th>Sweden</th>
+                    <td colspan="2">Stockholm</td>
+                    <td>Swedish</td>
+                </tr>
+            </table>
+        </aside>
+
+    </div> <!-- end of #layout -->
+    <!-- It's nice to mark the end of long HTML elements with comments so you don't get "lost" -->
+</body>
+</html>
