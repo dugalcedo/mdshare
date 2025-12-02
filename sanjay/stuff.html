@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Cheat Sheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #a0aec0;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #2d3748;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .info-box {
+            background: #edf2f7;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .method {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .method:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .method-name {
+            font-size: 1.3em;
+            color: #5a67d8;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .method-desc {
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output {
+            background: #fffaf0;
+            border-left: 3px solid #ed8936;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            color: #744210;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tag.static {
+            background: #f56565;
+        }
+
+        .tag.instance {
+            background: #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Quick Reference</h1>
+            <p class="subtitle">Methods, Properties & DOM Manipulation</p>
+        </header>
+
+        <div class="content">
+            <!-- Instance vs Static Methods -->
+            <div class="section">
+                <h2>Instance vs Static Methods</h2>
+                <div class="info-box">
+                    <h3>Instance Methods</h3>
+                    <p><strong>Called on:</strong> Individual instances/values of a type</p>
+                    <div class="code-block">const num = 42.789;
+num.toFixed(2);  // Called on the instance "num"</div>
+                </div>
+                <div class="info-box">
+                    <h3>Static Methods</h3>
+                    <p><strong>Called on:</strong> The type/constructor itself (not on instances)</p>
+                    <div class="code-block">Number.isInteger(42);  // Called on Number constructor</div>
+                </div>
+            </div>
+
+            <!-- Number Methods -->
+            <div class="section">
+                <h2>Number Methods & Properties</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        number.toFixed(digits)
+                    </div>
+                    <div class="method-desc">Formats a number to a fixed number of decimal places, returns a string.</div>
+                    <div class="code-block">const price = 19.567;
+console.log(price.toFixed(2));  // "19.57"
+console.log(price.toFixed(0));  // "20"</div>
+                    <div class="output">Output: "19.57", "20"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        number.toString(radix)
+                    </div>
+                    <div class="method-desc">Converts a number to a string. Optional radix parameter for different bases (2-36).</div>
+                    <div class="code-block">const num = 255;
+console.log(num.toString());     // "255"
+console.log(num.toString(16));   // "ff" (hexadecimal)
+console.log(num.toString(2));    // "11111111" (binary)</div>
+                    <div class="output">Output: "255", "ff", "11111111"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Number.isFinite(value)
+                    </div>
+                    <div class="method-desc">Checks if a value is a finite number (not Infinity, -Infinity, or NaN).</div>
+                    <div class="code-block">console.log(Number.isFinite(100));       // true
+console.log(Number.isFinite(Infinity));  // false
+console.log(Number.isFinite("100"));     // false (string!)</div>
+                    <div class="output">Output: true, false, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Number.isInteger(value)
+                    </div>
+                    <div class="method-desc">Checks if a value is an integer.</div>
+                    <div class="code-block">console.log(Number.isInteger(42));      // true
+console.log(Number.isInteger(42.5));    // false
+console.log(Number.isInteger("42"));    // false (string!)</div>
+                    <div class="output">Output: true, false, false</div>
+                </div>
+            </div>
+
+            <!-- Boolean Methods -->
+            <div class="section">
+                <h2>Boolean Methods</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        boolean.toString()
+                    </div>
+                    <div class="method-desc">Converts a boolean to a string representation.</div>
+                    <div class="code-block">const isActive = true;
+console.log(isActive.toString());  // "true"
+console.log(false.toString());     // "false"</div>
+                    <div class="output">Output: "true", "false"</div>
+                </div>
+            </div>
+
+            <!-- String Methods -->
+            <div class="section">
+                <h2>String Methods & Properties</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Property</span>
+                        string.length
+                    </div>
+                    <div class="method-desc">Returns the number of characters in a string.</div>
+                    <div class="code-block">const greeting = "Hello World";
+console.log(greeting.length);  // 11</div>
+                    <div class="output">Output: 11</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.toUpperCase()
+                    </div>
+                    <div class="method-desc">Converts all characters to uppercase.</div>
+                    <div class="code-block">const text = "hello world";
+console.log(text.toUpperCase());  // "HELLO WORLD"</div>
+                    <div class="output">Output: "HELLO WORLD"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.toLowerCase()
+                    </div>
+                    <div class="method-desc">Converts all characters to lowercase.</div>
+                    <div class="code-block">const text = "HELLO WORLD";
+console.log(text.toLowerCase());  // "hello world"</div>
+                    <div class="output">Output: "hello world"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.localeCompare(compareString)
+                    </div>
+                    <div class="method-desc">Compares two strings in the current locale. Returns negative if before, positive if after, 0 if equal.</div>
+                    <div class="code-block">console.log("a".localeCompare("b"));      // -1 (a comes before b)
+console.log("b".localeCompare("a"));      // 1 (b comes after a)
+console.log("hello".localeCompare("hello"));  // 0 (equal)</div>
+                    <div class="output">Output: -1, 1, 0</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.split(separator)
+                    </div>
+                    <div class="method-desc">Splits a string into an array based on a separator.</div>
+                    <div class="code-block">const csv = "apple,banana,orange";
+console.log(csv.split(","));  // ["apple", "banana", "orange"]
+
+const sentence = "Hello World";
+console.log(sentence.split(" "));  // ["Hello", "World"]</div>
+                    <div class="output">Output: ["apple", "banana", "orange"], ["Hello", "World"]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.trim()
+                    </div>
+                    <div class="method-desc">Removes whitespace from both ends of a string.</div>
+                    <div class="code-block">const messy = "   hello world   ";
+console.log(messy.trim());  // "hello world"
+
+// Also: trimStart() and trimEnd()
+console.log(messy.trimStart());  // "hello world   "</div>
+                    <div class="output">Output: "hello world"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.includes(searchString)
+                    </div>
+                    <div class="method-desc">Checks if a string contains another string. Returns true/false.</div>
+                    <div class="code-block">const text = "Hello World";
+console.log(text.includes("World"));  // true
+console.log(text.includes("world"));  // false (case-sensitive)
+console.log(text.includes("xyz"));    // false</div>
+                    <div class="output">Output: true, false, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.startsWith(searchString)
+                    </div>
+                    <div class="method-desc">Checks if a string starts with another string.</div>
+                    <div class="code-block">const url = "https://example.com";
+console.log(url.startsWith("https"));  // true
+console.log(url.startsWith("http"));   // true
+console.log(url.startsWith("ftp"));    // false</div>
+                    <div class="output">Output: true, true, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.endsWith(searchString)
+                    </div>
+                    <div class="method-desc">Checks if a string ends with another string.</div>
+                    <div class="code-block">const filename = "document.pdf";
+console.log(filename.endsWith(".pdf"));  // true
+console.log(filename.endsWith(".txt"));  // false</div>
+                    <div class="output">Output: true, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.slice(start, end)
+                    </div>
+                    <div class="method-desc">Extracts a section of a string and returns it as a new string.</div>
+                    <div class="code-block">const text = "Hello World";
+console.log(text.slice(0, 5));   // "Hello"
+console.log(text.slice(6));      // "World"
+console.log(text.slice(-5));     // "World" (from end)</div>
+                    <div class="output">Output: "Hello", "World", "World"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.substring(start, end)
+                    </div>
+                    <div class="method-desc">Similar to slice, but doesn't support negative indices.</div>
+                    <div class="code-block">const text = "Hello World";
+console.log(text.substring(0, 5));  // "Hello"
+console.log(text.substring(6, 11)); // "World"</div>
+                    <div class="output">Output: "Hello", "World"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.replace(searchValue, replaceValue)
+                    </div>
+                    <div class="method-desc">Replaces the first occurrence of a value in a string.</div>
+                    <div class="code-block">const text = "Hello World World";
+console.log(text.replace("World", "JavaScript"));
+// "Hello JavaScript World" (only first occurrence)
+
+// Replace all occurrences with replaceAll
+console.log(text.replaceAll("World", "JavaScript"));
+// "Hello JavaScript JavaScript"</div>
+                    <div class="output">Only replaces first match (use replaceAll for all)</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.indexOf(searchValue)
+                    </div>
+                    <div class="method-desc">Returns the index of the first occurrence, or -1 if not found.</div>
+                    <div class="code-block">const text = "Hello World";
+console.log(text.indexOf("World"));  // 6
+console.log(text.indexOf("o"));      // 4 (first 'o')
+console.log(text.indexOf("xyz"));    // -1 (not found)</div>
+                    <div class="output">Output: 6, 4, -1</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        string.charAt(index)
+                    </div>
+                    <div class="method-desc">Returns the character at a specified index.</div>
+                    <div class="code-block">const text = "Hello";
+console.log(text.charAt(0));  // "H"
+console.log(text.charAt(4));  // "o"
+
+// Can also use bracket notation
+console.log(text[0]);  // "H"</div>
+                    <div class="output">Output: "H", "o", "H"</div>
+                </div>
+            </div>
+
+            <!-- Array Methods -->
+            <div class="section">
+                <h2>Array Methods & Properties</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Property</span>
+                        array.length
+                    </div>
+                    <div class="method-desc">Returns the number of elements in an array.</div>
+                    <div class="code-block">const fruits = ["apple", "banana", "orange"];
+console.log(fruits.length);  // 3</div>
+                    <div class="output">Output: 3</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.push(element)
+                    </div>
+                    <div class="method-desc">Adds one or more elements to the end of an array. Returns new length. Mutates array.</div>
+                    <div class="code-block">const numbers = [1, 2, 3];
+numbers.push(4);
+console.log(numbers);  // [1, 2, 3, 4]
+numbers.push(5, 6);
+console.log(numbers);  // [1, 2, 3, 4, 5, 6]</div>
+                    <div class="output">Output: [1, 2, 3, 4], [1, 2, 3, 4, 5, 6]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.pop()
+                    </div>
+                    <div class="method-desc">Removes and returns the last element from an array. Mutates array.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4];
+const last = numbers.pop();
+console.log(last);      // 4
+console.log(numbers);   // [1, 2, 3]</div>
+                    <div class="output">Output: 4, [1, 2, 3]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.shift()
+                    </div>
+                    <div class="method-desc">Removes and returns the first element from an array. Mutates array.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4];
+const first = numbers.shift();
+console.log(first);     // 1
+console.log(numbers);   // [2, 3, 4]</div>
+                    <div class="output">Output: 1, [2, 3, 4]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.unshift(element)
+                    </div>
+                    <div class="method-desc">Adds one or more elements to the beginning of an array. Returns new length. Mutates array.</div>
+                    <div class="code-block">const numbers = [3, 4];
+numbers.unshift(1, 2);
+console.log(numbers);  // [1, 2, 3, 4]</div>
+                    <div class="output">Output: [1, 2, 3, 4]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.splice(start, deleteCount, item1, ...)
+                    </div>
+                    <div class="method-desc">Adds/removes elements from an array at a specific position. Mutates array.</div>
+                    <div class="code-block">const arr = [1, 2, 3, 4, 5];
+arr.splice(2, 1);  // Remove 1 element at index 2
+console.log(arr);  // [1, 2, 4, 5]
+
+const arr2 = [1, 2, 5];
+arr2.splice(2, 0, 3, 4);  // Insert 3, 4 at index 2
+console.log(arr2);  // [1, 2, 3, 4, 5]</div>
+                    <div class="output">Output: [1, 2, 4, 5], [1, 2, 3, 4, 5]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.reverse()
+                    </div>
+                    <div class="method-desc">Reverses the order of elements in an array. Mutates array.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4];
+numbers.reverse();
+console.log(numbers);  // [4, 3, 2, 1]</div>
+                    <div class="output">Output: [4, 3, 2, 1]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.slice(start, end)
+                    </div>
+                    <div class="method-desc">Returns a shallow copy of a portion of an array. Does not mutate original.</div>
+                    <div class="code-block">const fruits = ["apple", "banana", "orange", "grape"];
+const citrus = fruits.slice(1, 3);
+console.log(citrus);  // ["banana", "orange"]
+console.log(fruits);  // ["apple", "banana", "orange", "grape"]</div>
+                    <div class="output">Output: ["banana", "orange"], original unchanged</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Array.isArray(value)
+                    </div>
+                    <div class="method-desc">Checks if a value is an array.</div>
+                    <div class="code-block">console.log(Array.isArray([1, 2, 3]));  // true
+console.log(Array.isArray("hello"));    // false
+console.log(Array.isArray({a: 1}));     // false</div>
+                    <div class="output">Output: true, false, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.forEach(callback)
+                    </div>
+                    <div class="method-desc">Executes a function for each array element. No return value.</div>
+                    <div class="code-block">const numbers = [1, 2, 3];
+numbers.forEach((num, index) => {
+    console.log(`Index ${index}: ${num}`);
+});
+// Output: Index 0: 1, Index 1: 2, Index 2: 3</div>
+                    <div class="output">Executes function for each element</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.map(callback)
+                    </div>
+                    <div class="method-desc">Creates a new array by transforming each element with a function.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled);  // [2, 4, 6, 8]</div>
+                    <div class="output">Output: [2, 4, 6, 8]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.filter(callback)
+                    </div>
+                    <div class="method-desc">Creates a new array with elements that pass a test function.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4, 5, 6];
+const evens = numbers.filter(num => num % 2 === 0);
+console.log(evens);  // [2, 4, 6]</div>
+                    <div class="output">Output: [2, 4, 6]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.find(callback)
+                    </div>
+                    <div class="method-desc">Returns the first element that passes a test function (or undefined if none found).</div>
+                    <div class="code-block">const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" }
+];
+const user = users.find(u => u.id === 2);
+console.log(user);  // { id: 2, name: "Bob" }</div>
+                    <div class="output">Output: { id: 2, name: "Bob" }</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.sort(compareFunction)
+                    </div>
+                    <div class="method-desc">Sorts array elements in place. Optional compare function for custom sorting. Mutates array.</div>
+                    <div class="code-block">const numbers = [3, 1, 4, 1, 5, 9];
+numbers.sort((a, b) => a - b);  // Ascending
+console.log(numbers);  // [1, 1, 3, 4, 5, 9]
+
+// Descending
+numbers.sort((a, b) => b - a);
+console.log(numbers);  // [9, 5, 4, 3, 1, 1]
+
+const words = ["banana", "apple", "cherry"];
+words.sort();
+console.log(words);  // ["apple", "banana", "cherry"]</div>
+                    <div class="output">Output: [1, 1, 3, 4, 5, 9], ["apple", "banana", "cherry"]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.join(separator)
+                    </div>
+                    <div class="method-desc">Joins all array elements into a string with a separator.</div>
+                    <div class="code-block">const words = ["Hello", "World"];
+console.log(words.join(" "));  // "Hello World"
+console.log(words.join("-"));  // "Hello-World"
+
+const numbers = [1, 2, 3];
+console.log(numbers.join());   // "1,2,3" (default comma)</div>
+                    <div class="output">Output: "Hello World", "Hello-World", "1,2,3"</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.concat(array2)
+                    </div>
+                    <div class="method-desc">Merges two or more arrays into a new array. Does not mutate original.</div>
+                    <div class="code-block">const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = arr1.concat(arr2);
+console.log(combined);  // [1, 2, 3, 4, 5, 6]
+
+// Can concat multiple
+const arr3 = [7, 8];
+const result = arr1.concat(arr2, arr3);
+console.log(result);  // [1, 2, 3, 4, 5, 6, 7, 8]</div>
+                    <div class="output">Output: [1, 2, 3, 4, 5, 6]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.includes(element)
+                    </div>
+                    <div class="method-desc">Checks if an array contains a specific element. Returns true/false.</div>
+                    <div class="code-block">const fruits = ["apple", "banana", "orange"];
+console.log(fruits.includes("banana"));  // true
+console.log(fruits.includes("grape"));   // false
+
+const numbers = [1, 2, 3, 4, 5];
+console.log(numbers.includes(3));  // true</div>
+                    <div class="output">Output: true, false, true</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.indexOf(element)
+                    </div>
+                    <div class="method-desc">Returns the first index of an element, or -1 if not found.</div>
+                    <div class="code-block">const fruits = ["apple", "banana", "orange", "banana"];
+console.log(fruits.indexOf("banana"));  // 1 (first occurrence)
+console.log(fruits.indexOf("grape"));   // -1 (not found)</div>
+                    <div class="output">Output: 1, -1</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.every(callback)
+                    </div>
+                    <div class="method-desc">Tests if ALL elements pass a test function. Returns true/false.</div>
+                    <div class="code-block">const numbers = [2, 4, 6, 8];
+const allEven = numbers.every(num => num % 2 === 0);
+console.log(allEven);  // true
+
+const mixed = [2, 4, 5, 8];
+const allEven2 = mixed.every(num => num % 2 === 0);
+console.log(allEven2);  // false</div>
+                    <div class="output">Output: true, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.some(callback)
+                    </div>
+                    <div class="method-desc">Tests if ANY element passes a test function. Returns true/false.</div>
+                    <div class="code-block">const numbers = [1, 3, 5, 8];
+const hasEven = numbers.some(num => num % 2 === 0);
+console.log(hasEven);  // true (8 is even)
+
+const allOdd = [1, 3, 5, 7];
+const hasEven2 = allOdd.some(num => num % 2 === 0);
+console.log(hasEven2);  // false</div>
+                    <div class="output">Output: true, false</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.reduce(callback, initialValue)
+                    </div>
+                    <div class="method-desc">Reduces an array to a single value by applying a function to each element.</div>
+                    <div class="code-block">const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log(sum);  // 15
+
+// Find maximum
+const max = numbers.reduce((max, num) => num > max ? num : max);
+console.log(max);  // 5
+
+// Build object
+const fruits = ["apple", "banana", "apple"];
+const count = fruits.reduce((acc, fruit) => {
+    acc[fruit] = (acc[fruit] || 0) + 1;
+    return acc;
+}, {});
+console.log(count);  // { apple: 2, banana: 1 }</div>
+                    <div class="output">Powerful method for transforming arrays</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        array.flat(depth)
+                    </div>
+                    <div class="method-desc">Flattens nested arrays by specified depth (default 1).</div>
+                    <div class="code-block">const nested = [1, [2, 3], [4, [5, 6]]];
+console.log(nested.flat());     // [1, 2, 3, 4, [5, 6]]
+console.log(nested.flat(2));    // [1, 2, 3, 4, 5, 6]
+console.log(nested.flat(Infinity));  // Fully flatten</div>
+                    <div class="output">Output: [1, 2, 3, 4, [5, 6]], [1, 2, 3, 4, 5, 6]</div>
+                </div>
+            </div>
+
+            <!-- Object Methods -->
+            <div class="section">
+                <h2>Object Methods</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Object.keys(object)
+                    </div>
+                    <div class="method-desc">Returns an array of an object's property names (keys).</div>
+                    <div class="code-block">const person = { name: "Alice", age: 30, city: "NYC" };
+const keys = Object.keys(person);
+console.log(keys);  // ["name", "age", "city"]
+
+// Useful for looping
+keys.forEach(key => {
+    console.log(`${key}: ${person[key]}`);
+});</div>
+                    <div class="output">Output: ["name", "age", "city"]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Object.values(object)
+                    </div>
+                    <div class="method-desc">Returns an array of an object's property values.</div>
+                    <div class="code-block">const person = { name: "Alice", age: 30, city: "NYC" };
+const values = Object.values(person);
+console.log(values);  // ["Alice", 30, "NYC"]</div>
+                    <div class="output">Output: ["Alice", 30, "NYC"]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Object.entries(object)
+                    </div>
+                    <div class="method-desc">Returns an array of [key, value] pairs.</div>
+                    <div class="code-block">const person = { name: "Alice", age: 30 };
+const entries = Object.entries(person);
+console.log(entries);  
+// [["name", "Alice"], ["age", 30]]
+
+// Great for looping
+for (const [key, value] of entries) {
+    console.log(`${key}: ${value}`);
+}</div>
+                    <div class="output">Output: [["name", "Alice"], ["age", 30]]</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Object.assign(target, source)
+                    </div>
+                    <div class="method-desc">Copies properties from source objects to a target object. Mutates target.</div>
+                    <div class="code-block">const target = { a: 1, b: 2 };
+const source = { b: 3, c: 4 };
+Object.assign(target, source);
+console.log(target);  // { a: 1, b: 3, c: 4 }
+
+// Common: create new object (shallow copy)
+const original = { x: 1, y: 2 };
+const copy = Object.assign({}, original);
+console.log(copy);  // { x: 1, y: 2 }</div>
+                    <div class="output">Merges objects, later sources override</div>
+                </div>
+            </div>
+
+            <!-- Math Object -->
+            <div class="section">
+                <h2>Math Object</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.round(x)
+                    </div>
+                    <div class="method-desc">Rounds to the nearest integer.</div>
+                    <div class="code-block">console.log(Math.round(4.7));   // 5
+console.log(Math.round(4.4));   // 4
+console.log(Math.round(4.5));   // 5</div>
+                    <div class="output">Output: 5, 4, 5</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.floor(x)
+                    </div>
+                    <div class="method-desc">Rounds down to the nearest integer.</div>
+                    <div class="code-block">console.log(Math.floor(4.9));   // 4
+console.log(Math.floor(4.1));   // 4
+console.log(Math.floor(-4.1));  // -5</div>
+                    <div class="output">Output: 4, 4, -5</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.ceil(x)
+                    </div>
+                    <div class="method-desc">Rounds up to the nearest integer.</div>
+                    <div class="code-block">console.log(Math.ceil(4.1));   // 5
+console.log(Math.ceil(4.9));   // 5
+console.log(Math.ceil(-4.9));  // -4</div>
+                    <div class="output">Output: 5, 5, -4</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.max(...values)
+                    </div>
+                    <div class="method-desc">Returns the largest of the given numbers.</div>
+                    <div class="code-block">console.log(Math.max(1, 5, 3, 9, 2));  // 9
+
+// With array, use spread operator
+const numbers = [1, 5, 3, 9, 2];
+console.log(Math.max(...numbers));  // 9</div>
+                    <div class="output">Output: 9</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.min(...values)
+                    </div>
+                    <div class="method-desc">Returns the smallest of the given numbers.</div>
+                    <div class="code-block">console.log(Math.min(1, 5, 3, 9, 2));  // 1
+
+const numbers = [1, 5, 3, 9, 2];
+console.log(Math.min(...numbers));  // 1</div>
+                    <div class="output">Output: 1</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.random()
+                    </div>
+                    <div class="method-desc">Returns a random number between 0 (inclusive) and 1 (exclusive).</div>
+                    <div class="code-block">console.log(Math.random());  // e.g., 0.7392...
+
+// Random integer between min and max (inclusive)
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(randomInt(1, 10));  // Random number 1-10</div>
+                    <div class="output">Output: 0 ≤ x < 1</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.abs(x)
+                    </div>
+                    <div class="method-desc">Returns the absolute (positive) value of a number.</div>
+                    <div class="code-block">console.log(Math.abs(-5));   // 5
+console.log(Math.abs(5));    // 5
+console.log(Math.abs(-3.7)); // 3.7</div>
+                    <div class="output">Output: 5, 5, 3.7</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.pow(base, exponent)
+                    </div>
+                    <div class="method-desc">Returns base raised to the power of exponent.</div>
+                    <div class="code-block">console.log(Math.pow(2, 3));   // 8 (2³)
+console.log(Math.pow(5, 2));   // 25 (5²)
+
+// Can also use ** operator
+console.log(2 ** 3);  // 8</div>
+                    <div class="output">Output: 8, 25, 8</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag static">Static</span>
+                        Math.sqrt(x)
+                    </div>
+                    <div class="method-desc">Returns the square root of a number.</div>
+                    <div class="code-block">console.log(Math.sqrt(16));  // 4
+console.log(Math.sqrt(25));  // 5
+console.log(Math.sqrt(2));   // 1.414...</div>
+                    <div class="output">Output: 4, 5, 1.414...</div>
+                </div>
+            </div>
+
+            <!-- Console Methods -->
+            <div class="section">
+                <h2>Console Methods</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        console.log(...values)
+                    </div>
+                    <div class="method-desc">Outputs messages to the browser console.</div>
+                    <div class="code-block">console.log("Hello");
+console.log("Multiple", "values", 123);
+
+const user = { name: "Alice", age: 30 };
+console.log(user);  // Shows object structure
+
+// Template literals
+console.log(`User: ${user.name}`);</div>
+                    <div class="output">Primary debugging tool</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        console.error(message)
+                    </div>
+                    <div class="method-desc">Outputs an error message (styled red in console).</div>
+                    <div class="code-block">console.error("Something went wrong!");
+console.error("Error:", new Error("Failed"));</div>
+                    <div class="output">Displays as error in console</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        console.table(data)
+                    </div>
+                    <div class="method-desc">Displays arrays or objects as a formatted table.</div>
+                    <div class="code-block">const users = [
+    { name: "Alice", age: 30 },
+    { name: "Bob", age: 25 }
+];
+console.table(users);  // Shows nice table in console</div>
+                    <div class="output">Great for viewing structured data</div>
+                </div>
+            </div>
+
+            <!-- DOM Methods -->
+            <div class="section">
+                <h2>DOM Manipulation</h2>
+
+                <div class="method">
+                    <div class="method-name">
+                        document.getElementById(id)
+                    </div>
+                    <div class="method-desc">Returns the element with the specified ID.</div>
+                    <div class="code-block">const header = document.getElementById("main-header");
+console.log(header);  // &lt;div id="main-header"&gt;...&lt;/div&gt;</div>
+                    <div class="output">Returns single element or null</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        document.querySelector(selector)
+                    </div>
+                    <div class="method-desc">Returns the first element matching a CSS selector.</div>
+                    <div class="code-block">const firstButton = document.querySelector(".btn");
+const nav = document.querySelector("#navbar .active");
+console.log(firstButton);  // First element with class "btn"</div>
+                    <div class="output">Returns first matching element or null</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        document.querySelectorAll(selector)
+                    </div>
+                    <div class="method-desc">Returns all elements matching a CSS selector as a NodeList.</div>
+                    <div class="code-block">const allButtons = document.querySelectorAll(".btn");
+console.log(allButtons.length);  // Number of buttons
+
+// Convert to array for array methods
+const buttonArray = Array.from(allButtons);
+buttonArray.forEach(btn => {
+    console.log(btn.textContent);
+});</div>
+                    <div class="output">Returns NodeList (array-like, not array)</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        document.createElement(tagName)
+                    </div>
+                    <div class="method-desc">Creates a new HTML element (not yet added to DOM).</div>
+                    <div class="code-block">const newDiv = document.createElement("div");
+newDiv.className = "container";
+const newButton = document.createElement("button");
+newButton.textContent = "Click me";</div>
+                    <div class="output">Creates new element in memory</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.innerText
+                    </div>
+                    <div class="method-desc">Gets or sets the visible text content of an element.</div>
+                    <div class="code-block">const heading = document.querySelector("h1");
+console.log(heading.innerText);  // Gets text
+heading.innerText = "New Title";  // Sets text</div>
+                    <div class="output">Read/write property for text content</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.innerHTML
+                    </div>
+                    <div class="method-desc">Gets or sets the HTML content inside an element. Can parse HTML tags.</div>
+                    <div class="code-block">const container = document.querySelector(".container");
+container.innerHTML = "&lt;p&gt;Hello &lt;strong&gt;World&lt;/strong&gt;&lt;/p&gt;";
+console.log(container.innerHTML);  // Gets HTML string</div>
+                    <div class="output">⚠️ Be careful with user input (XSS risk)</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.textContent
+                    </div>
+                    <div class="method-desc">Gets or sets the text content of an element (including hidden text). Safer than innerHTML.</div>
+                    <div class="code-block">const para = document.querySelector("p");
+para.textContent = "Safe text with &lt;tags&gt;";
+// Displays literally: "Safe text with &lt;tags&gt;"
+
+// Unlike innerText, includes hidden elements
+console.log(para.textContent);</div>
+                    <div class="output">HTML tags are displayed as text, not parsed</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.classList.add/remove/toggle/contains
+                    </div>
+                    <div class="method-desc">Manipulates CSS classes on an element.</div>
+                    <div class="code-block">const box = document.querySelector(".box");
+
+box.classList.add("active");           // Add class
+box.classList.remove("inactive");      // Remove class
+box.classList.toggle("hidden");        // Toggle on/off
+box.classList.contains("active");      // Check if has class (true/false)
+
+// Add multiple
+box.classList.add("class1", "class2", "class3");</div>
+                    <div class="output">Modern way to manipulate classes</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.style.property
+                    </div>
+                    <div class="method-desc">Gets or sets inline CSS styles on an element.</div>
+                    <div class="code-block">const box = document.querySelector(".box");
+
+box.style.backgroundColor = "blue";
+box.style.width = "200px";
+box.style.display = "none";
+
+// Note: CSS properties use camelCase
+// background-color → backgroundColor
+// font-size → fontSize</div>
+                    <div class="output">Sets inline styles (high specificity)</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.setAttribute(name, value)
+                    </div>
+                    <div class="method-desc">Sets the value of an attribute on an element.</div>
+                    <div class="code-block">const img = document.querySelector("img");
+img.setAttribute("src", "photo.jpg");
+img.setAttribute("alt", "A beautiful photo");
+img.setAttribute("data-id", "123");</div>
+                    <div class="output">Adds or updates attribute</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.getAttribute(name)
+                    </div>
+                    <div class="method-desc">Returns the value of a specified attribute.</div>
+                    <div class="code-block">const link = document.querySelector("a");
+const url = link.getAttribute("href");
+const target = link.getAttribute("target");
+console.log(url);  // Gets href value</div>
+                    <div class="output">Returns attribute value or null</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.removeAttribute(name)
+                    </div>
+                    <div class="method-desc">Removes an attribute from an element.</div>
+                    <div class="code-block">const input = document.querySelector("input");
+input.removeAttribute("disabled");  // Enable input
+input.removeAttribute("readonly");</div>
+                    <div class="output">Completely removes the attribute</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.addEventListener(type, listener, options)
+                    </div>
+                    <div class="method-desc">Attaches an event handler to an element. Common events: click, input, change, submit, keydown, mouseover, etc.</div>
+                    <div class="code-block">const button = document.querySelector("button");
+button.addEventListener("click", (e) => {
+    console.log("Button clicked!");
+    console.log(e.target);  // The clicked element
+});
+
+// Multiple event types
+const input = document.querySelector("input");
+input.addEventListener("input", (e) => {
+    console.log("Value changed:", e.target.value);
+});
+
+// Form submission
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+    e.preventDefault();  // Stop form from submitting
+    console.log("Form submitted!");
+});
+
+// Options: run once then remove
+button.addEventListener("click", handler, { once: true });</div>
+                    <div class="output">Executes callback when event fires</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.removeEventListener(type, listener)
+                    </div>
+                    <div class="method-desc">Removes an event handler from an element. Must use same function reference.</div>
+                    <div class="code-block">function handleClick() {
+    console.log("Clicked!");
+}
+
+button.addEventListener("click", handleClick);
+button.removeEventListener("click", handleClick);  // Removed</div>
+                    <div class="output">Function reference must match</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag">Property</span>
+                        element.value
+                    </div>
+                    <div class="method-desc">Gets or sets the value of form elements.</div>
+                    <div class="code-block">// Elements with .value property:
+// &lt;input&gt;, &lt;textarea&gt;, &lt;select&gt;
+
+const input = document.querySelector("input");
+console.log(input.value);  // Get current value
+input.value = "New text";  // Set value
+
+const select = document.querySelector("select");
+console.log(select.value);  // Selected option value</div>
+                    <div class="output">Only on form controls: input, textarea, select</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.append(content)
+                    </div>
+                    <div class="method-desc">Adds content to the end of an element (can be elements or text). Modern method.</div>
+                    <div class="code-block">const container = document.querySelector(".container");
+const newDiv = document.createElement("div");
+newDiv.textContent = "New item";
+
+container.append(newDiv);  // Add element
+container.append("Some text");  // Add text
+container.append(newDiv, "More text");  // Add multiple</div>
+                    <div class="output">Appends to end of element</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.prepend(content)
+                    </div>
+                    <div class="method-desc">Adds content to the beginning of an element. Modern method.</div>
+                    <div class="code-block">const list = document.querySelector("ul");
+const newItem = document.createElement("li");
+newItem.textContent = "First item";
+
+list.prepend(newItem);  // Adds to start of list</div>
+                    <div class="output">Prepends to beginning of element</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.remove()
+                    </div>
+                    <div class="method-desc">Removes the element from the DOM. Modern method.</div>
+                    <div class="code-block">const oldElement = document.querySelector(".old");
+oldElement.remove();  // Element is gone from DOM</div>
+                    <div class="output">Simple removal of element</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        parent.removeChild(child)
+                    </div>
+                    <div class="method-desc">Removes a child element. Older method, but still common.</div>
+                    <div class="code-block">const parent = document.querySelector(".parent");
+const child = document.querySelector(".child");
+parent.removeChild(child);</div>
+                    <div class="output">Returns the removed child</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.insertAdjacentHTML(position, html)
+                    </div>
+                    <div class="method-desc">Inserts HTML at a specified position relative to the element.</div>
+                    <div class="code-block">const div = document.querySelector("div");
+
+// Positions: "beforebegin", "afterbegin", "beforeend", "afterend"
+div.insertAdjacentHTML("beforebegin", "&lt;p&gt;Before div&lt;/p&gt;");
+div.insertAdjacentHTML("afterbegin", "&lt;p&gt;First child&lt;/p&gt;");
+div.insertAdjacentHTML("beforeend", "&lt;p&gt;Last child&lt;/p&gt;");
+div.insertAdjacentHTML("afterend", "&lt;p&gt;After div&lt;/p&gt;");</div>
+                    <div class="output">4 positions: before/after begin/end</div>
+                </div>
+
+                <div class="method">
+                    <div class="method-name">
+                        <span class="tag instance">Instance</span>
+                        element.insertAdjacentElement(position, element)
+                    </div>
+                    <div class="method-desc">Inserts an element at a specified position relative to the element.</div>
+                    <div class="code-block">const container = document.querySelector(".container");
+const newPara = document.createElement("p");
+newPara.textContent = "New paragraph";
+
+// Same positions as insertAdjacentHTML
+container.insertAdjacentElement("afterbegin", newPara);
+// newPara is now first child of container</div>
+                    <div class="output">Insert element nodes at specific positions</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
