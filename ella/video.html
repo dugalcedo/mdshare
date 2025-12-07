@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p>Video with controls</p>
+    <video width="250" controls>
+        <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/Flame_Robin_girraween.ogv/Flame_Robin_girraween.ogv.360p.webm">
+    </video>
+
+    <hr>
+
+    <p>Video with no controls and autoplay</p>
+    <p>Most browsers will prevent this from happening because it's considered bad taste to play media before user interaction has occurred. Why?</p>
+    <ul>
+        <li>Users don't like it when they don't control the media (especially if it has sound)</li>
+        <li>Users may want to save data if they are on a limited data plan.</li>
+        <li>Audio can interrupt the screen readers that blind people use.</li>
+        <li>Sudden flashing lights can hurt people with epilepsy.</li>
+    </ul>
+    <video width="250" autoplay>
+        <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/Flame_Robin_girraween.ogv/Flame_Robin_girraween.ogv.360p.webm">
+    </video>
+
+    <hr>
+
+    <p>Browsers may allow a video to autoplay if it also has the "muted" attribute. </p>
+    <video width="250" muted autoplay>
+        <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/Flame_Robin_girraween.ogv/Flame_Robin_girraween.ogv.360p.webm">
+    </video>
+
+    <hr>
+
+    For more info, see MDN web docs.
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video">https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video</a>
+</body>
+</html>
