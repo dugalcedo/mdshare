@@ -6,12 +6,6 @@ Note 2: the translations were generated with an AI chatbot, so they may not all 
 
 Note 3: some people say 'brace' instead of 'bracket'
 
-<style>
-  #main-table code {
-    font-weight: bold;
-    font-size: 2rem;
-  }
-</style>
 <table id="main-table">
 <thead>
 <tr>
@@ -23,7 +17,7 @@ Note 3: some people say 'brace' instead of 'bracket'
 </thead>
 <tbody>
 <tr>
-  <td><code>(</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">(</code></td>
   <td>left parenthesis</td>
   <td>left round bracket</td>
   <td>
@@ -39,7 +33,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>)</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">)</code></td>
   <td>right parenthesis</td>
   <td>right round bracket</td>
   <td>
@@ -55,7 +49,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>[</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">[</code></td>
   <td colspan="2">left square bracket</td>
   <td>
     <small>🇷🇺 открывающая квадратная скобка</small><br>
@@ -70,7 +64,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>]</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">]</code></td>
   <td colspan="2">right square bracket</td>
   <td>
     <small>🇷🇺 закрывающая квадратная скобка</small><br>
@@ -85,7 +79,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>{</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">{</code></td>
   <td colspan="2">left curly bracket</td>
   <td>
     <small>🇷🇺 открывающая фигурная скобка</small><br>
@@ -100,7 +94,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>}</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">}</code></td>
   <td colspan="2">right curly bracket</td>
   <td>
     <small>🇷🇺 закрывающая фигурная скобка</small><br>
@@ -115,7 +109,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>&lt;</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">&lt;</code></td>
   <td colspan="2">less-than / left angle bracket</td>
   <td>
     <small>🇷🇺 знак меньше</small><br>
@@ -130,7 +124,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>&gt;</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">&gt;</code></td>
   <td colspan="2">greater-than / right angle bracket</td>
   <td>
     <small>🇷🇺 знак больше</small><br>
@@ -145,7 +139,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>"</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">"</code></td>
   <td>double quotes</td>
   <td>speech marks</td>
   <td>
@@ -161,7 +155,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>'</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">'</code></td>
   <td colspan="2">single quote</td>
   <td>
     <small>🇷🇺 одинарная кавычка / апостроф</small><br>
@@ -176,7 +170,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>`</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">`</code></td>
   <td colspan="2">backtick</td>
   <td>
     <small>🇷🇺 обратный апостроф</small><br>
@@ -191,7 +185,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>/</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">/</code></td>
   <td colspan="2">forward slash / slash</td>
   <td>
     <small>🇷🇺 прямой слэш</small><br>
@@ -206,7 +200,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>\</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">\</code></td>
   <td colspan="2">backslash</td>
   <td>
     <small>🇷🇺 обратный слэш</small><br>
@@ -221,7 +215,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>|</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">|</code></td>
   <td colspan="2">pipe / vertical bar</td>
   <td>
     <small>🇷🇺 вертикальная черта / пайп</small><br>
@@ -236,7 +230,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>&amp;</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">&amp;</code></td>
   <td colspan="2">ampersand / and-sign</td>
   <td>
     <small>🇷🇺 амперсанд</small><br>
@@ -251,7 +245,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>@</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">@</code></td>
   <td colspan="2">at sign / at</td>
   <td>
     <small>🇷🇺 собака</small><br>
@@ -266,7 +260,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>#</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">#</code></td>
   <td colspan="2">hash / hashtag / number sign</td>
   <td>
     <small>🇷🇺 решётка / хэш</small><br>
@@ -281,7 +275,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>$</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">$</code></td>
   <td colspan="2">dollar sign</td>
   <td>
     <small>🇷🇺 знак доллара</small><br>
@@ -296,7 +290,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>%</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">%</code></td>
   <td colspan="2">percent sign</td>
   <td>
     <small>🇷🇺 знак процента</small><br>
@@ -311,7 +305,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>^</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">^</code></td>
   <td colspan="2">caret</td>
   <td>
     <small>🇷🇺 крышка / циркумфлекс</small><br>
@@ -326,7 +320,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>~</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">~</code></td>
   <td colspan="2">tilde</td>
   <td>
     <small>🇷🇺 тильда</small><br>
@@ -341,7 +335,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>_</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">_</code></td>
   <td colspan="2">underscore</td>
   <td>
     <small>🇷🇺 подчёркивание</small><br>
@@ -356,7 +350,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>-</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">-</code></td>
   <td colspan="2">hyphen / minus / dash</td>
   <td>
     <small>🇷🇺 дефис / минус / тире</small><br>
@@ -371,7 +365,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>+</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">+</code></td>
   <td colspan="2">plus sign</td>
   <td>
     <small>🇷🇺 плюс</small><br>
@@ -386,7 +380,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>=</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">=</code></td>
   <td colspan="2">equals sign</td>
   <td>
     <small>🇷🇺 знак равенства</small><br>
@@ -401,7 +395,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>*</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">*</code></td>
   <td colspan="2">asterisk / star</td>
   <td>
     <small>🇷🇺 звёздочка / астериск</small><br>
@@ -416,7 +410,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>;</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">;</code></td>
   <td colspan="2">semicolon</td>
   <td>
     <small>🇷🇺 точка с запятой</small><br>
@@ -431,7 +425,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>:</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">:</code></td>
   <td colspan="2">colon</td>
   <td>
     <small>🇷🇺 двоеточие</small><br>
@@ -446,7 +440,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>,</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">,</code></td>
   <td colspan="2">comma</td>
   <td>
     <small>🇷🇺 запятая</small><br>
@@ -461,7 +455,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>.</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">.</code></td>
   <td>period / dot</td>
   <td>full stop / dot</td>
   <td>
@@ -477,7 +471,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>?</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">?</code></td>
   <td colspan="2">question mark</td>
   <td>
     <small>🇷🇺 вопросительный знак</small><br>
@@ -492,7 +486,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>!</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">!</code></td>
   <td>exclamation point</td>
   <td>exclamation mark</td>
   <td>
@@ -508,7 +502,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>±</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">±</code></td>
   <td colspan="2">plus-minus sign</td>
   <td>
     <small>🇷🇺 плюс-минус</small><br>
@@ -523,7 +517,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>×</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">×</code></td>
   <td>multiplication sign / times</td>
   <td>multiplication sign</td>
   <td>
@@ -539,7 +533,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>÷</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">÷</code></td>
   <td colspan="2">division sign</td>
   <td>
     <small>🇷🇺 знак деления</small><br>
@@ -554,7 +548,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>∞</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">∞</code></td>
   <td colspan="2">infinity symbol</td>
   <td>
     <small>🇷🇺 знак бесконечности</small><br>
@@ -569,7 +563,7 @@ Note 3: some people say 'brace' instead of 'bracket'
   </td>
 </tr>
 <tr>
-  <td><code>°</code></td>
+  <td><code style="font-size: 2rem; font-weight: bold;">°</code></td>
   <td colspan="2">degree sign</td>
   <td>
     <small>🇷🇺 знак градуса</small><br>
