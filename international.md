@@ -6,7 +6,13 @@ Note 2: the translations were generated with an AI chatbot, so they may not all 
 
 Note 3: some people say 'brace' instead of 'bracket'
 
-<table>
+<style>
+  #main-table code {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+</style>
+<table id="main-table">
 <thead>
 <tr>
   <th>Symbol</th>
