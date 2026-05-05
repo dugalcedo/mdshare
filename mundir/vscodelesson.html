@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code Web Design Timeline</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --sidebar-bg: #000000;
+            --text-main: #d4d4d4;
+            --accent-blue: #007acc;
+            --highlight-yellow: #dcdcaa;
+            --border-color: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+        }
+
+        /* Fixed Video Sidebar */
+        .video-sidebar {
+            position: sticky;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
+        }
+
+        /* Scrolling Timeline */
+        .timeline-content {
+            width: 50%;
+            padding: 60px 40px;
+            box-sizing: border-box;
+        }
+
+        header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .overview {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #aaaaaa;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 20px;
+        }
+
+        .timeline {
+            position: relative;
+            border-left: 2px solid var(--border-color);
+            padding-left: 30px;
+            margin-left: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        /* Timeline Dots */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent-blue);
+            border: 4px solid var(--bg-color);
+            border-radius: 50%;
+        }
+
+        .timestamp {
+            font-family: 'Courier New', monospace;
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .topic-title {
+            font-size: 1.5rem;
+            color: var(--highlight-yellow);
+            margin-bottom: 15px;
+        }
+
+        .description {
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .shortcut {
+            background: #37373d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #4fc1ff;
+            font-family: monospace;
+            border: 1px solid #454545;
+        }
+
+        /* Responsive adjustment */
+        @media (max-width: 1000px) {
+            body { flex-direction: column; }
+            .video-sidebar { position: relative; width: 100%; height: auto; }
+            .timeline-content { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-sidebar">
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/iNJfWGLuLrU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+            <p style="color: #666; font-size: 0.9rem;">Video is fixed to your view</p>
+        </div>
+    </div>
+
+    <div class="timeline-content">
+        <header>
+            <h1>VS Code Web Design Guide</h1>
+            <p class="overview">
+                Transitioning from basic text editors like Notepad++ to a professional environment. 
+                This tutorial focuses on efficiency, keyboard-first navigation, and real-time collaboration tools.
+            </p>
+        </header>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timestamp">00:00 - 03:05</span>
+                <div class="topic-title">Setup & Philosophy</div>
+                <div class="description">
+                    Introduction to the editor. The key takeaway is learning to work without the mouse[cite: 1]. 
+                    Closing existing projects to start fresh and mastering <span class="shortcut">Ctrl + S</span> for constant saving[cite: 1].
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timestamp">03:05 - 09:24</span>
+                <div class="topic-title">Cursor Mastery</div>
+                <div class="description">
+                    Speed up text manipulation with <span class="shortcut">Ctrl + Arrows</span> to move by word[cite: 1]. 
+                    Use <span class="shortcut">Alt + Click</span> to place multiple cursors manually—perfect for editing several lines at once[cite: 1].
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timestamp">09:24 - 12:00</span>
+                <div class="topic-title">The "Ctrl + D" Magic</div>
+                <div class="description">
+                    Highlight a word and press <span class="shortcut">Ctrl + D</span> to select the next matching instance[cite: 1]. 
+                    This allows for bulk renaming of tags or classes without a "Find and Replace" menu[cite: 1].
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timestamp">12:00 - 19:33</span>
+                <div class="topic-title">Live Share & Panels</div>
+                <div class="description">
+                    A deep dive into the Explorer and Extensions panels[cite: 1]. 
+                    Features <b>Live Share</b>, which lets you collaborate on code and share local servers with remote teammates via a GitHub/Microsoft account[cite: 1].
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timestamp">23:45 - 28:15</span>
+                <div class="topic-title">Emmet Wrap Abbreviation</div>
+                <div class="description">
+                    Using the Command Palette (<span class="shortcut">Ctrl + Shift + P</span>) to access "Emmet: Wrap with Abbreviation"[cite: 1]. 
+                    This allows you to select raw text and instantly wrap it in a parent tag like <span class="shortcut">&lt;section&gt;</span>[cite: 1].
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timestamp">28:15 - 42:55</span>
+                <div class="topic-title">Templates & Extensions</div>
+                <div class="description">
+                    Generating a boilerplate with the <span class="shortcut">!</span> shortcut[cite: 1]. 
+                    The tutorial recommends <b>HTML Hint</b> for error detection and <b>Live Preview</b> for seeing code changes in real-time within the editor[cite: 1].
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
