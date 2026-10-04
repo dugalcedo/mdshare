@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Vocabulary</title>
+    <style>
+        :root {
+            --bg: #f7f6f2;
+            --card: #ffffff;
+            --ink: #1d1d1f;
+            --muted: #5f6368;
+            --line: #e0ded6;
+            --accent: #2457c5;
+            --es: #b8460e;
+            --code-bg: #f1f0ea;
+            --t-tag: #2457c5;
+            --t-attr: #7a3bd8;
+            --t-val: #0f7b3f;
+            --t-com: #8a8a8a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+        main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+        h1 { font-size: 2rem; margin: 0.5em 0 0.2em; }
+        h2 { margin-top: 2.2em; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+        h3 { margin: 0 0 8px; font-size: 1.2rem; }
+        code, pre { font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace; font-size: 0.92em; }
+        :not(pre) > code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+        .subtitle { color: var(--muted); margin: 0; }
+        .es-word { color: var(--es); font-weight: 600; }
+        .es-word::before {
+            content: "ES";
+            font: 700 10px/1 system-ui, sans-serif;
+            color: #fff;
+            background: var(--es);
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-right: 6px;
+            vertical-align: 2px;
+        }
+
+        nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+        nav a {
+            text-decoration: none;
+            color: var(--accent);
+            border: 1px solid var(--line);
+            background: var(--card);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+        }
+
+        /* Translatable boxes */
+        .bi {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 16px 12px;
+            margin: 12px 0;
+        }
+        .card .bi { background: var(--bg); border: none; }
+        .lang { display: flex; gap: 4px; justify-content: flex-end; }
+        .lang button {
+            font: 600 12px/1 system-ui, sans-serif;
+            padding: 5px 9px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--muted);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .lang button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .lang button[data-lang="es"][aria-pressed="true"] { background: var(--es); border-color: var(--es); }
+        .bi > .es { display: none; }
+        .bi.show-es > .en { display: none; }
+        .bi.show-es > .es { display: block; }
+        .bi p { margin: 4px 0 8px; }
+        .bi p:last-child { margin-bottom: 0; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .stands { color: var(--muted); font-weight: 400; font-size: 0.95rem; }
+        .stands b { color: var(--ink); }
+
+        /* Examples */
+        .example { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+        @media (max-width: 640px) { .example { grid-template-columns: 1fr; } }
+        .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+        .example .label {
+            font: 600 12px/1 system-ui, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+        .example pre {
+            margin: 0;
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 12px;
+            overflow-x: auto;
+        }
+        .example .result {
+            border: 1px dashed var(--line);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .example .result > :first-child { margin-top: 0; }
+        .example .result > :last-child { margin-bottom: 0; }
+        .result table { border-collapse: collapse; }
+        .result th, .result td { border: 1px solid #bbb; padding: 4px 10px; }
+        .result img { max-width: 100%; }
+        .t-tag { color: var(--t-tag); }
+        .t-attr { color: var(--t-attr); }
+        .t-val { color: var(--t-val); }
+        .t-com { color: var(--t-com); font-style: italic; }
+
+        /* Anatomy diagram */
+        .anatomy {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px 16px;
+            overflow-x: auto;
+        }
+        .anatomy .line { font: 1.25rem/2 ui-monospace, Menlo, Consolas, monospace; white-space: nowrap; }
+        .seg { padding: 3px 2px; border-radius: 4px; }
+        .seg sup { font: 700 11px/1 system-ui, sans-serif; margin-left: 2px; }
+        .s1 { background: #dbe6fb; }
+        .s2 { background: #ead9fb; }
+        .s3 { background: #d4f0de; }
+        .s4 { background: #fbe1d2; }
+        .family { margin-bottom: 12px; }
+        .family .line { white-space: pre; line-height: 1.8; }
+        .family .note { font: 0.9rem system-ui, sans-serif; color: var(--muted); }
+        .anatomy ol { margin: 14px 0 0; padding-left: 0; list-style: none; display: grid; gap: 6px; }
+        .anatomy li { display: flex; gap: 8px; align-items: baseline; }
+        .anatomy .num { font-weight: 700; min-width: 1.5em; text-align: center; border-radius: 4px; }
+
+        .warning { border-left: 4px solid var(--es); }
+
+        table.cheat { width: 100%; border-collapse: collapse; background: var(--card); }
+        table.cheat th, table.cheat td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+        table.cheat th { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+        .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<main>
+
+    <h1>HTML Vocabulary</h1>
+    <p class="subtitle">Vocabulario de HTML</p>
+
+    <nav>
+        <a href="#intro">What is HTML?</a>
+        <a href="#anatomy">Parts of an element</a>
+        <a href="#words">Words</a>
+        <a href="#structure">Page structure</a>
+        <a href="#text">Text</a>
+        <a href="#lists">Lists</a>
+        <a href="#links">Links &amp; images</a>
+        <a href="#tables">Tables</a>
+        <a href="#forms">Forms</a>
+        <a href="#attributes">Attributes</a>
+        <a href="#cheat">Cheat sheet</a>
+    </nav>
+
+    <!-- ============ INTRO ============ -->
+    <h2 id="intro">What is HTML? <span class="es-word">¿Qué es HTML?</span></h2>
+
+    <div class="bi">
+        <div class="en">
+            <p>HTML is the language of web pages. Every web page you visit is made with HTML.</p>
+            <p>HTML tells the browser what is on the page: titles, paragraphs, pictures, links, lists, and more.</p>
+            <p>Every box on this page has <strong>EN</strong> and <strong>ES</strong> buttons. Click <strong>ES</strong> to read the box in Spanish.</p>
+        </div>
+        <div class="es" lang="es">
+            <p>HTML es el lenguaje de las páginas web. Todas las páginas web que visitas están hechas con HTML.</p>
+            <p>HTML le dice al navegador qué hay en la página: títulos, párrafos, imágenes, enlaces, listas y más.</p>
+            <p>Cada caja de esta página tiene botones <strong>EN</strong> y <strong>ES</strong>. Haz clic en <strong>EN</strong> para leer la caja en inglés.</p>
+        </div>
+    </div>
+
+    <!-- ============ ANATOMY ============ -->
+    <h2 id="anatomy">Parts of an element <span class="es-word">Partes de un elemento</span></h2>
+
+    <div class="anatomy">
+        <div class="line"><span class="seg s1">&lt;a <span class="seg s2">href="https://example.com"<sup>2</sup></span>&gt;<sup>1</sup></span><span class="seg s3">Click here<sup>3</sup></span><span class="seg s4">&lt;/a&gt;<sup>4</sup></span></div>
+        <ol>
+            <li><span class="num s1">1</span> <span><b>opening tag</b> · <span lang="es">etiqueta de apertura</span></span></li>
+            <li><span class="num s2">2</span> <span><b>attribute</b> · <span lang="es">atributo</span></span></li>
+            <li><span class="num s3">3</span> <span><b>content</b> · <span lang="es">contenido</span></span></li>
+            <li><span class="num s4">4</span> <span><b>closing tag</b> · <span lang="es">etiqueta de cierre</span></span></li>
+        </ol>
+        <p style="margin:12px 0 0">1 + 2 + 3 + 4 = <b>element</b> · <span lang="es">elemento</span></p>
+    </div>
+
+    <div class="bi">
+        <div class="en">
+            <p>This is one <strong>element</strong>. It has four parts:</p>
+            <p><strong>1. The opening tag</strong> starts the element.<br>
+               <strong>2. The attribute</strong> gives extra information. Here, <code>href</code> says where the link goes.<br>
+               <strong>3. The content</strong> is what people see on the page.<br>
+               <strong>4. The closing tag</strong> ends the element. It has a slash: <code>/</code></p>
+        </div>
+        <div class="es" lang="es">
+            <p>Esto es un <strong>elemento</strong>. Tiene cuatro partes:</p>
+            <p><strong>1. La etiqueta de apertura</strong> empieza el elemento.<br>
+               <strong>2. El atributo</strong> da información extra. Aquí, <code>href</code> dice a dónde va el enlace.<br>
+               <strong>3. El contenido</strong> es lo que la gente ve en la página.<br>
+               <strong>4. La etiqueta de cierre</strong> termina el elemento. Tiene una barra: <code>/</code></p>
+        </div>
+    </div>
+
+    <!-- ============ VOCABULARY ============ -->
+    <h2 id="words">Important words <span class="es-word">Palabras importantes</span></h2>
+
+    <div class="card">
+        <h3>Tag <span class="es-word">etiqueta</span></h3>
+        <div class="bi">
+            <div class="en"><p>A tag is a word inside angle brackets: <code>&lt;</code> and <code>&gt;</code>. Tags tell the browser where an element starts and where it ends. Example: <code>&lt;p&gt;</code></p></div>
+            <div class="es" lang="es"><p>Una etiqueta es una palabra dentro de los signos <code>&lt;</code> y <code>&gt;</code>. Las etiquetas le dicen al navegador dónde empieza y dónde termina un elemento. Ejemplo: <code>&lt;p&gt;</code></p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Opening tag <span class="es-word">etiqueta de apertura</span></h3>
+        <div class="bi">
+            <div class="en"><p>The first tag. It opens (starts) the element. Example: <code>&lt;p&gt;</code></p></div>
+            <div class="es" lang="es"><p>La primera etiqueta. Abre (empieza) el elemento. Ejemplo: <code>&lt;p&gt;</code></p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Closing tag <span class="es-word">etiqueta de cierre</span></h3>
+        <div class="bi">
+            <div class="en"><p>The last tag. It closes (ends) the element. It looks like the opening tag, but with a slash <code>/</code> before the name. Example: <code>&lt;/p&gt;</code></p></div>
+            <div class="es" lang="es"><p>La última etiqueta. Cierra (termina) el elemento. Es igual a la etiqueta de apertura, pero con una barra <code>/</code> antes del nombre. Ejemplo: <code>&lt;/p&gt;</code></p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Element <span class="es-word">elemento</span></h3>
+        <div class="bi">
+            <div class="en"><p>An element is the complete thing: opening tag + content + closing tag. Example: <code>&lt;p&gt;Hello&lt;/p&gt;</code> is one paragraph element. A web page is made of many elements.</p></div>
+            <div class="es" lang="es"><p>Un elemento es la cosa completa: etiqueta de apertura + contenido + etiqueta de cierre. Ejemplo: <code>&lt;p&gt;Hello&lt;/p&gt;</code> es un elemento de párrafo. Una página web está hecha de muchos elementos.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Content <span class="es-word">contenido</span></h3>
+        <div class="bi">
+            <div class="en"><p>The content is what is <em>between</em> the opening tag and the closing tag. In <code>&lt;p&gt;Hello&lt;/p&gt;</code>, the content is <code>Hello</code>. Content can be text or other elements.</p></div>
+            <div class="es" lang="es"><p>El contenido es lo que está <em>entre</em> la etiqueta de apertura y la etiqueta de cierre. En <code>&lt;p&gt;Hello&lt;/p&gt;</code>, el contenido es <code>Hello</code>. El contenido puede ser texto u otros elementos.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Attribute <span class="es-word">atributo</span></h3>
+        <div class="bi">
+            <div class="en"><p>An attribute gives extra information about an element. It goes <em>inside</em> the opening tag. It has a name and a value: <code>name="value"</code>. Example: <code>&lt;a href="https://example.com"&gt;</code></p></div>
+            <div class="es" lang="es"><p>Un atributo da información extra sobre un elemento. Va <em>dentro</em> de la etiqueta de apertura. Tiene un nombre y un valor: <code>nombre="valor"</code>. Ejemplo: <code>&lt;a href="https://example.com"&gt;</code></p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Value <span class="es-word">valor</span></h3>
+        <div class="bi">
+            <div class="en"><p>The value is the part of an attribute after the equals sign <code>=</code>. Put it inside quotes <code>" "</code>. In <code>alt="A cat"</code>, the value is <code>A cat</code>.</p></div>
+            <div class="es" lang="es"><p>El valor es la parte del atributo después del signo igual <code>=</code>. Se escribe entre comillas <code>" "</code>. En <code>alt="A cat"</code>, el valor es <code>A cat</code>.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Empty element (void element) <span class="es-word">elemento vacío</span></h3>
+        <div class="bi">
+            <div class="en"><p>Some elements have no content and no closing tag. They are called empty elements or void elements. Examples: <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;input&gt;</code></p></div>
+            <div class="es" lang="es"><p>Algunos elementos no tienen contenido ni etiqueta de cierre. Se llaman elementos vacíos. Ejemplos: <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;input&gt;</code></p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Nesting <span class="es-word">anidar / anidamiento</span></h3>
+        <div class="bi">
+            <div class="en"><p>Nesting means putting one element inside another element. Close the inside element first, before you close the outside element.</p></div>
+            <div class="es" lang="es"><p>Anidar significa poner un elemento dentro de otro elemento. Primero cierra el elemento de adentro, antes de cerrar el elemento de afuera.</p></div>
+        </div>
+        <div class="compare">
+            <div class="example" data-no-result data-label="✓ Correct · Correcto">
+                <script type="text/html">
+<p>
+    <strong>Hi</strong>
+</p>
+                </script>
+            </div>
+            <div class="example" data-no-result data-label="✗ Wrong · Incorrecto">
+                <script type="text/html">
+<p>
+    <strong>Hi
+</p>
+    </strong>
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Parent / Child / Sibling <span class="es-word">padre / hijo / hermano</span></h3>
+        <div class="anatomy family">
+            <div class="line"><span class="seg s1">&lt;ul&gt;</span>                  <span class="note">← <b>parent</b> · <span lang="es">padre</span></span></div>
+            <div class="line">    <span class="seg s3">&lt;li&gt;Apples&lt;/li&gt;</span>   <span class="note">← <b>child</b> · <span lang="es">hijo</span></span></div>
+            <div class="line">    <span class="seg s3">&lt;li&gt;Bananas&lt;/li&gt;</span>  <span class="note">← <b>child</b> · <span lang="es">hijo</span></span></div>
+            <div class="line"><span class="seg s1">&lt;/ul&gt;</span></div>
+            <p style="margin:12px 0 0">The two <code>&lt;li&gt;</code> elements are <b>siblings</b> · <span lang="es">hermanos</span></p>
+        </div>
+        <div class="bi">
+            <div class="en">
+                <p>When an element is inside another element, the outside one is the <strong>parent</strong> and the inside one is the <strong>child</strong>. Here, <code>&lt;ul&gt;</code> is the parent and each <code>&lt;li&gt;</code> is a child.</p>
+                <p>Elements with the same parent are <strong>siblings</strong> (like brothers and sisters). The two <code>&lt;li&gt;</code> elements are siblings.</p>
+            </div>
+            <div class="es" lang="es">
+                <p>Cuando un elemento está dentro de otro, el de afuera es el <strong>padre</strong> y el de adentro es el <strong>hijo</strong>. Aquí, <code>&lt;ul&gt;</code> es el padre y cada <code>&lt;li&gt;</code> es un hijo.</p>
+                <p>Los elementos que tienen el mismo padre son <strong>hermanos</strong>. Los dos <code>&lt;li&gt;</code> son hermanos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Angle brackets <span class="es-word">signos de menor y mayor que</span></h3>
+        <div class="bi">
+            <div class="en"><p>The symbols <code>&lt;</code> and <code>&gt;</code>. Every tag starts with <code>&lt;</code> and ends with <code>&gt;</code>.</p></div>
+            <div class="es" lang="es"><p>Los símbolos <code>&lt;</code> y <code>&gt;</code> (también se llaman corchetes angulares). Toda etiqueta empieza con <code>&lt;</code> y termina con <code>&gt;</code>.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Slash <span class="es-word">barra</span></h3>
+        <div class="bi">
+            <div class="en"><p>The symbol <code>/</code>. It is used in closing tags: <code>&lt;/p&gt;</code>. Do not confuse it with the backslash <code>\</code>.</p></div>
+            <div class="es" lang="es"><p>El símbolo <code>/</code>. Se usa en las etiquetas de cierre: <code>&lt;/p&gt;</code>. No lo confundas con la barra invertida <code>\</code>.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Comment <span class="es-word">comentario</span></h3>
+        <div class="bi">
+            <div class="en"><p>A comment is a note for people who read the code. The browser does not show it. Comments start with <code>&lt;!--</code> and end with <code>--&gt;</code>.</p></div>
+            <div class="es" lang="es"><p>Un comentario es una nota para las personas que leen el código. El navegador no lo muestra. Los comentarios empiezan con <code>&lt;!--</code> y terminan con <code>--&gt;</code>.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<p>You can see this.</p>
+<!-- You cannot see this. -->
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Browser <span class="es-word">navegador</span></h3>
+        <div class="bi">
+            <div class="en"><p>The program you use to open web pages: Chrome, Firefox, Safari, Edge. The browser reads the HTML and shows the page.</p></div>
+            <div class="es" lang="es"><p>El programa que usas para abrir páginas web: Chrome, Firefox, Safari, Edge. El navegador lee el HTML y muestra la página.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Indentation <span class="es-word">sangría</span></h3>
+        <div class="bi">
+            <div class="en"><p>Spaces at the start of a line of code. The browser ignores them. We use them so people can see which elements are inside other elements.</p></div>
+            <div class="es" lang="es"><p>Los espacios al principio de una línea de código. El navegador los ignora. Los usamos para que las personas vean qué elementos están dentro de otros.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Syntax <span class="es-word">sintaxis</span></h3>
+        <div class="bi">
+            <div class="en"><p>The rules for writing code correctly. For example: every tag needs <code>&lt;</code> and <code>&gt;</code>, and attribute values go inside quotes.</p></div>
+            <div class="es" lang="es"><p>Las reglas para escribir código correctamente. Por ejemplo: toda etiqueta necesita <code>&lt;</code> y <code>&gt;</code>, y los valores de los atributos van entre comillas.</p></div>
+        </div>
+    </div>
+
+    <div class="card warning">
+        <h3>Careful! Tag vs. label <span class="es-word">¡Cuidado! etiqueta</span></h3>
+        <div class="bi">
+            <div class="en"><p>In Spanish, <em>tag</em> and <em>label</em> are both translated as <em>etiqueta</em>. In HTML they are different things. A <strong>tag</strong> is any <code>&lt;something&gt;</code>. A <strong>label</strong> is one specific element, <code>&lt;label&gt;</code>, used in forms.</p></div>
+            <div class="es" lang="es"><p>En español, <em>tag</em> y <em>label</em> se traducen igual: <em>etiqueta</em>. En HTML son cosas diferentes. Un <strong>tag</strong> es cualquier <code>&lt;algo&gt;</code>. Un <strong>label</strong> es un elemento específico, <code>&lt;label&gt;</code>, que se usa en formularios.</p></div>
+        </div>
+    </div>
+
+    <!-- ============ PAGE STRUCTURE ============ -->
+    <h2 id="structure">Page structure <span class="es-word">Estructura de la página</span></h2>
+
+    <div class="bi">
+        <div class="en"><p>Every HTML page has the same basic structure. <code>&lt;html&gt;</code> holds everything. Inside it, <code>&lt;head&gt;</code> has information <em>about</em> the page (people don't see it on the page). <code>&lt;body&gt;</code> has everything people see.</p></div>
+        <div class="es" lang="es"><p>Toda página HTML tiene la misma estructura básica. <code>&lt;html&gt;</code> contiene todo. Dentro, <code>&lt;head&gt;</code> tiene información <em>sobre</em> la página (la gente no la ve en la página). <code>&lt;body&gt;</code> tiene todo lo que la gente ve.</p></div>
+    </div>
+
+    <div class="example" data-no-result>
+        <script type="text/html">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+</head>
+<body>
+    <h1>Hello!</h1>
+    <p>This is my page.</p>
+</body>
+</html>
+        </script>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;html&gt;</code> <span class="stands">= <b>HyperText Markup Language</b> · <span lang="es">Lenguaje de Marcado de Hipertexto</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>The root element. All other elements go inside it. The <code>lang</code> attribute says the language of the page.</p></div>
+            <div class="es" lang="es"><p>El elemento raíz. Todos los demás elementos van dentro de él. El atributo <code>lang</code> dice el idioma de la página.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;head&gt;</code> <span class="stands">= <b>head</b> · <span lang="es">cabeza</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Information about the page: the title, the character set, links to CSS files. Not shown on the page.</p></div>
+            <div class="es" lang="es"><p>Información sobre la página: el título, el juego de caracteres, enlaces a archivos CSS. No se muestra en la página.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;title&gt;</code> <span class="stands">= <b>title</b> · <span lang="es">título</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>The name of the page. You see it in the browser tab, not on the page. It goes inside <code>&lt;head&gt;</code>.</p></div>
+            <div class="es" lang="es"><p>El nombre de la página. Lo ves en la pestaña del navegador, no en la página. Va dentro de <code>&lt;head&gt;</code>.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;body&gt;</code> <span class="stands">= <b>body</b> · <span lang="es">cuerpo</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Everything people see on the page goes here: text, images, links, lists, tables, forms.</p></div>
+            <div class="es" lang="es"><p>Todo lo que la gente ve en la página va aquí: texto, imágenes, enlaces, listas, tablas, formularios.</p></div>
+        </div>
+    </div>
+
+    <!-- ============ TEXT ============ -->
+    <h2 id="text">Text elements <span class="es-word">Elementos de texto</span></h2>
+
+    <div class="card">
+        <h3><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> <span class="stands">h = <b>heading</b> · <span lang="es">encabezado / título</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Headings are titles. <code>&lt;h1&gt;</code> is the biggest and most important. <code>&lt;h6&gt;</code> is the smallest. Use only one <code>&lt;h1&gt;</code> per page.</p></div>
+            <div class="es" lang="es"><p>Los encabezados son títulos. <code>&lt;h1&gt;</code> es el más grande y el más importante. <code>&lt;h6&gt;</code> es el más pequeño. Usa solo un <code>&lt;h1&gt;</code> por página.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<h1>Big title</h1>
+<h2>Smaller title</h2>
+<h3>Even smaller</h3>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;p&gt;</code> <span class="stands">p = <b>paragraph</b> · <span lang="es">párrafo</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A paragraph of text. The browser adds space above and below each paragraph.</p></div>
+            <div class="es" lang="es"><p>Un párrafo de texto. El navegador agrega espacio arriba y abajo de cada párrafo.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;br&gt;</code> <span class="stands">br = <b>break</b> (line break) · <span lang="es">salto de línea</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Starts a new line inside text. It is an empty element: no content, no closing tag.</p></div>
+            <div class="es" lang="es"><p>Empieza una nueva línea dentro del texto. Es un elemento vacío: sin contenido y sin etiqueta de cierre.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<p>Line one<br>Line two</p>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> <span class="stands">em = <b>emphasis</b> · <span lang="es">énfasis</span>; strong · <span lang="es">fuerte</span></span></h3>
+        <div class="bi">
+            <div class="en"><p><code>&lt;strong&gt;</code> marks very important text. It is usually <strong>bold</strong>. <code>&lt;em&gt;</code> marks text you say with emphasis. It is usually <em>italic</em>.</p></div>
+            <div class="es" lang="es"><p><code>&lt;strong&gt;</code> marca texto muy importante. Normalmente se ve en <strong>negrita</strong>. <code>&lt;em&gt;</code> marca texto que se dice con énfasis. Normalmente se ve en <em>cursiva</em>.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<p>This is <strong>important</strong>.</p>
+<p>I <em>really</em> like it.</p>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> <span class="stands">div = <b>division</b> · <span lang="es">división</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Containers. They group other things together. On their own, they don't look like anything. <code>&lt;div&gt;</code> is a big block (it starts on a new line). <code>&lt;span&gt;</code> is small and stays inside a line of text.</p></div>
+            <div class="es" lang="es"><p>Contenedores. Agrupan otras cosas. Solos, no se ven diferentes. <code>&lt;div&gt;</code> es un bloque grande (empieza en una línea nueva). <code>&lt;span&gt;</code> es pequeño y se queda dentro de una línea de texto.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<div>
+    <p>A <span>small</span> part.</p>
+</div>
+            </script>
+        </div>
+    </div>
+
+    <!-- ============ LISTS ============ -->
+    <h2 id="lists">Lists <span class="es-word">Listas</span></h2>
+
+    <div class="card">
+        <h3><code>&lt;ul&gt;</code> <span class="stands">ul = <b>unordered list</b> · <span lang="es">lista no ordenada</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A list with dots (bullets). The order is not important.</p></div>
+            <div class="es" lang="es"><p>Una lista con puntos (viñetas). El orden no es importante.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<ul>
+    <li>Apples</li>
+    <li>Bananas</li>
+    <li>Cherries</li>
+</ul>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;ol&gt;</code> <span class="stands">ol = <b>ordered list</b> · <span lang="es">lista ordenada</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A list with numbers. The order is important, like steps in a recipe.</p></div>
+            <div class="es" lang="es"><p>Una lista con números. El orden es importante, como los pasos de una receta.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<ol>
+    <li>Open the file</li>
+    <li>Write HTML</li>
+    <li>Save</li>
+</ol>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;li&gt;</code> <span class="stands">li = <b>list item</b> · <span lang="es">elemento de lista</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>One item in a list. It always goes inside <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code>.</p></div>
+            <div class="es" lang="es"><p>Un elemento de una lista. Siempre va dentro de <code>&lt;ul&gt;</code> o <code>&lt;ol&gt;</code>.</p></div>
+        </div>
+    </div>
+
+    <!-- ============ LINKS & IMAGES ============ -->
+    <h2 id="links">Links and images <span class="es-word">Enlaces e imágenes</span></h2>
+
+    <div class="card">
+        <h3><code>&lt;a&gt;</code> <span class="stands">a = <b>anchor</b> · <span lang="es">ancla</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A link. When you click it, you go to another page. The <code>href</code> attribute says where the link goes.</p></div>
+            <div class="es" lang="es"><p>Un enlace. Cuando haces clic, vas a otra página. El atributo <code>href</code> dice a dónde va el enlace.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<a href="https://www.wikipedia.org">Go to Wikipedia</a>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;img&gt;</code> <span class="stands">img = <b>image</b> · <span lang="es">imagen</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Shows a picture. It is an empty element (no closing tag). <code>src</code> is where the picture is. <code>alt</code> describes the picture for people who cannot see it.</p></div>
+            <div class="es" lang="es"><p>Muestra una imagen. Es un elemento vacío (sin etiqueta de cierre). <code>src</code> es dónde está la imagen. <code>alt</code> describe la imagen para las personas que no pueden verla.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<img src="https://picsum.photos/240/140" alt="A random photo">
+            </script>
+        </div>
+    </div>
+
+    <!-- ============ TABLES ============ -->
+    <h2 id="tables">Tables <span class="es-word">Tablas</span></h2>
+
+    <div class="bi">
+        <div class="en"><p>A table shows information in rows and columns. A <strong>row</strong> goes left to right. A <strong>column</strong> goes top to bottom. One box is called a <strong>cell</strong>.</p></div>
+        <div class="es" lang="es"><p>Una tabla muestra información en filas y columnas. Una <strong>fila</strong> va de izquierda a derecha. Una <strong>columna</strong> va de arriba a abajo. Cada cuadro se llama <strong>celda</strong>.</p></div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code></h3>
+        <p class="stands" style="margin:0 0 8px">
+            table = <b>table</b> · <span lang="es">tabla</span><br>
+            tr = <b>table row</b> · <span lang="es">fila de tabla</span><br>
+            th = <b>table header</b> · <span lang="es">encabezado de tabla</span><br>
+            td = <b>table data</b> · <span lang="es">dato de tabla (celda)</span>
+        </p>
+        <div class="bi">
+            <div class="en"><p><code>&lt;table&gt;</code> holds the whole table. Each <code>&lt;tr&gt;</code> is one row. Inside a row, <code>&lt;th&gt;</code> is a header cell (bold title) and <code>&lt;td&gt;</code> is a normal cell.</p></div>
+            <div class="es" lang="es"><p><code>&lt;table&gt;</code> contiene toda la tabla. Cada <code>&lt;tr&gt;</code> es una fila. Dentro de una fila, <code>&lt;th&gt;</code> es una celda de encabezado (título en negrita) y <code>&lt;td&gt;</code> es una celda normal.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>Ana</td>
+        <td>21</td>
+    </tr>
+    <tr>
+        <td>Luis</td>
+        <td>25</td>
+    </tr>
+</table>
+            </script>
+        </div>
+    </div>
+
+    <!-- ============ FORMS ============ -->
+    <h2 id="forms">Forms <span class="es-word">Formularios</span></h2>
+
+    <div class="bi">
+        <div class="en"><p>Forms let people type or choose things and send them. For example: a login page, a search box, or a contact form.</p></div>
+        <div class="es" lang="es"><p>Los formularios permiten a la gente escribir o elegir cosas y enviarlas. Por ejemplo: una página de inicio de sesión, una caja de búsqueda o un formulario de contacto.</p></div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;form&gt;</code> <span class="stands">= <b>form</b> · <span lang="es">formulario</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>Holds all the parts of a form: labels, inputs, and buttons.</p></div>
+            <div class="es" lang="es"><p>Contiene todas las partes de un formulario: etiquetas, campos y botones.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;label&gt;</code> <span class="stands">= <b>label</b> · <span lang="es">etiqueta (rótulo)</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>The text that says what an input is for, like "Name:". Its <code>for</code> attribute must match the input's <code>id</code>. Then clicking the label selects the input.</p></div>
+            <div class="es" lang="es"><p>El texto que dice para qué es un campo, como "Name:". Su atributo <code>for</code> debe ser igual al <code>id</code> del campo. Así, al hacer clic en el label, se selecciona el campo.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;input&gt;</code> <span class="stands">= <b>input</b> · <span lang="es">entrada / campo</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A box where people type. It is an empty element. The <code>type</code> attribute changes what kind of input it is: <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>checkbox</code>, and more.</p></div>
+            <div class="es" lang="es"><p>Una caja donde la gente escribe. Es un elemento vacío. El atributo <code>type</code> cambia el tipo de campo: <code>text</code> (texto), <code>email</code> (correo), <code>password</code> (contraseña), <code>number</code> (número), <code>checkbox</code> (casilla) y más.</p></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;button&gt;</code> <span class="stands">= <b>button</b> · <span lang="es">botón</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A button people can click. Inside a form, a button with <code>type="submit"</code> sends the form.</p></div>
+            <div class="es" lang="es"><p>Un botón para hacer clic. Dentro de un formulario, un botón con <code>type="submit"</code> envía el formulario.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Your name">
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email">
+    <br>
+    <button type="submit">Send</button>
+</form>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;select&gt;</code> and <code>&lt;option&gt;</code> <span class="stands">select = <b>select</b> · <span lang="es">seleccionar</span>; option · <span lang="es">opción</span></span></h3>
+        <div class="bi">
+            <div class="en"><p><code>&lt;select&gt;</code> makes a dropdown menu. Each choice in the menu is an <code>&lt;option&gt;</code>. The <code>value</code> attribute is what the form sends. The text is what people see.</p></div>
+            <div class="es" lang="es"><p><code>&lt;select&gt;</code> crea un menú desplegable. Cada opción del menú es un <code>&lt;option&gt;</code>. El atributo <code>value</code> es lo que envía el formulario. El texto es lo que ve la gente.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<label for="flavor">Flavor:</label>
+<select id="flavor">
+    <option value="vanilla">Vanilla</option>
+    <option value="chocolate">Chocolate</option>
+    <option value="strawberry">Strawberry</option>
+</select>
+            </script>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><code>&lt;textarea&gt;</code> <span class="stands">= <b>text area</b> · <span lang="es">área de texto</span></span></h3>
+        <div class="bi">
+            <div class="en"><p>A big box for long text, like a message. Unlike <code>&lt;input&gt;</code>, it has a closing tag.</p></div>
+            <div class="es" lang="es"><p>Una caja grande para texto largo, como un mensaje. A diferencia de <code>&lt;input&gt;</code>, tiene etiqueta de cierre.</p></div>
+        </div>
+        <div class="example">
+            <script type="text/html">
+<label for="message">Message:</label>
+<br>
+<textarea id="message" rows="3"></textarea>
+            </script>
+        </div>
+    </div>
+
+    <!-- ============ ATTRIBUTES ============ -->
+    <h2 id="attributes">Common attributes <span class="es-word">Atributos comunes</span></h2>
+
+    <div class="bi">
+        <div class="en"><p>Many attribute names are short words or abbreviations. Here is what they mean.</p></div>
+        <div class="es" lang="es"><p>Muchos nombres de atributos son palabras cortas o abreviaturas. Aquí está lo que significan.</p></div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="cheat">
+            <tr><th>Attribute</th><th>Stands for</th><th>Español</th><th>Used on</th></tr>
+            <tr><td><code>href</code></td><td>hypertext reference</td><td lang="es">referencia de hipertexto (la dirección del enlace)</td><td><code>&lt;a&gt;</code></td></tr>
+            <tr><td><code>src</code></td><td>source</td><td lang="es">fuente / origen</td><td><code>&lt;img&gt;</code></td></tr>
+            <tr><td><code>alt</code></td><td>alternative text</td><td lang="es">texto alternativo</td><td><code>&lt;img&gt;</code></td></tr>
+            <tr><td><code>id</code></td><td>identifier</td><td lang="es">identificador (nombre único)</td><td>any element</td></tr>
+            <tr><td><code>class</code></td><td>class (group)</td><td lang="es">clase (grupo)</td><td>any element</td></tr>
+            <tr><td><code>lang</code></td><td>language</td><td lang="es">idioma</td><td><code>&lt;html&gt;</code></td></tr>
+            <tr><td><code>type</code></td><td>type</td><td lang="es">tipo</td><td><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code></td></tr>
+            <tr><td><code>value</code></td><td>value</td><td lang="es">valor</td><td><code>&lt;option&gt;</code>, <code>&lt;input&gt;</code></td></tr>
+            <tr><td><code>for</code></td><td>for</td><td lang="es">para</td><td><code>&lt;label&gt;</code></td></tr>
+            <tr><td><code>placeholder</code></td><td>placeholder</td><td lang="es">texto de ejemplo</td><td><code>&lt;input&gt;</code></td></tr>
+            <tr><td><code>rows</code></td><td>rows</td><td lang="es">filas</td><td><code>&lt;textarea&gt;</code></td></tr>
+        </table>
+    </div>
+
+    <!-- ============ CHEAT SHEET ============ -->
+    <h2 id="cheat">Cheat sheet <span class="es-word">Hoja de referencia</span></h2>
+
+    <div class="table-wrap">
+        <table class="cheat">
+            <tr><th>Tag</th><th>Stands for</th><th>Español</th></tr>
+            <tr><td><code>&lt;html&gt;</code></td><td>HyperText Markup Language</td><td lang="es">Lenguaje de Marcado de Hipertexto</td></tr>
+            <tr><td><code>&lt;head&gt;</code></td><td>head</td><td lang="es">cabeza</td></tr>
+            <tr><td><code>&lt;title&gt;</code></td><td>title</td><td lang="es">título</td></tr>
+            <tr><td><code>&lt;body&gt;</code></td><td>body</td><td lang="es">cuerpo</td></tr>
+            <tr><td><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code></td><td>heading 1–6</td><td lang="es">encabezado 1–6</td></tr>
+            <tr><td><code>&lt;p&gt;</code></td><td>paragraph</td><td lang="es">párrafo</td></tr>
+            <tr><td><code>&lt;br&gt;</code></td><td>break</td><td lang="es">salto de línea</td></tr>
+            <tr><td><code>&lt;strong&gt;</code></td><td>strong</td><td lang="es">fuerte (negrita)</td></tr>
+            <tr><td><code>&lt;em&gt;</code></td><td>emphasis</td><td lang="es">énfasis (cursiva)</td></tr>
+            <tr><td><code>&lt;div&gt;</code></td><td>division</td><td lang="es">división</td></tr>
+            <tr><td><code>&lt;span&gt;</code></td><td>span</td><td lang="es">tramo</td></tr>
+            <tr><td><code>&lt;ul&gt;</code></td><td>unordered list</td><td lang="es">lista no ordenada</td></tr>
+            <tr><td><code>&lt;ol&gt;</code></td><td>ordered list</td><td lang="es">lista ordenada</td></tr>
+            <tr><td><code>&lt;li&gt;</code></td><td>list item</td><td lang="es">elemento de lista</td></tr>
+            <tr><td><code>&lt;a&gt;</code></td><td>anchor</td><td lang="es">ancla (enlace)</td></tr>
+            <tr><td><code>&lt;img&gt;</code></td><td>image</td><td lang="es">imagen</td></tr>
+            <tr><td><code>&lt;table&gt;</code></td><td>table</td><td lang="es">tabla</td></tr>
+            <tr><td><code>&lt;tr&gt;</code></td><td>table row</td><td lang="es">fila de tabla</td></tr>
+            <tr><td><code>&lt;th&gt;</code></td><td>table header</td><td lang="es">encabezado de tabla</td></tr>
+            <tr><td><code>&lt;td&gt;</code></td><td>table data</td><td lang="es">dato de tabla (celda)</td></tr>
+            <tr><td><code>&lt;form&gt;</code></td><td>form</td><td lang="es">formulario</td></tr>
+            <tr><td><code>&lt;label&gt;</code></td><td>label</td><td lang="es">etiqueta (rótulo)</td></tr>
+            <tr><td><code>&lt;input&gt;</code></td><td>input</td><td lang="es">entrada / campo</td></tr>
+            <tr><td><code>&lt;button&gt;</code></td><td>button</td><td lang="es">botón</td></tr>
+            <tr><td><code>&lt;select&gt;</code></td><td>select</td><td lang="es">seleccionar (menú desplegable)</td></tr>
+            <tr><td><code>&lt;option&gt;</code></td><td>option</td><td lang="es">opción</td></tr>
+            <tr><td><code>&lt;textarea&gt;</code></td><td>text area</td><td lang="es">área de texto</td></tr>
+        </table>
+    </div>
+
+</main>
+
+<script>
+    // EN / ES toggle on each .bi box
+    document.querySelectorAll('.bi').forEach(function (box) {
+        var bar = document.createElement('div');
+        bar.className = 'lang';
+        bar.innerHTML =
+            '<button type="button" data-lang="en" aria-pressed="true">EN</button>' +
+            '<button type="button" data-lang="es" aria-pressed="false">ES</button>';
+        box.prepend(bar);
+
+        bar.addEventListener('click', function (e) {
+            var btn = e.target.closest('button');
+            if (!btn) return;
+            var isEs = btn.dataset.lang === 'es';
+            box.classList.toggle('show-es', isEs);
+            bar.querySelectorAll('button').forEach(function (b) {
+                b.setAttribute('aria-pressed', String(b === btn));
+            });
+        });
+    });
+
+    // Build each example: show the code, then the result
+    function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function dedent(s) {
+        var lines = s.split('\n');
+        while (lines.length && !lines[0].trim()) lines.shift();
+        while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+        var min = Math.min.apply(null, lines.filter(function (l) { return l.trim(); })
+            .map(function (l) { return l.match(/^ */)[0].length; }));
+        return lines.map(function (l) { return l.slice(min); }).join('\n');
+    }
+
+    function highlight(src) {
+        var re = /(<!--[\s\S]*?-->)|(<\/?!?)([a-zA-Z0-9]+)([^>]*?)(\/?>)/g;
+        var out = '', last = 0, m;
+        while ((m = re.exec(src))) {
+            out += escapeHtml(src.slice(last, m.index));
+            if (m[1]) {
+                out += '<span class="t-com">' + escapeHtml(m[1]) + '</span>';
+            } else {
+                var attrs = escapeHtml(m[4]).replace(/([\w-]+)=("[^"]*")/g,
+                    '<span class="t-attr">$1</span>=<span class="t-val">$2</span>');
+                out += '<span class="t-tag">' + escapeHtml(m[2]) + m[3] + '</span>' + attrs +
+                       '<span class="t-tag">' + escapeHtml(m[5]) + '</span>';
+            }
+            last = re.lastIndex;
+        }
+        return out + escapeHtml(src.slice(last));
+    }
+
+    document.querySelectorAll('.example').forEach(function (ex) {
+        var src = dedent(ex.querySelector('script').textContent);
+        var label = ex.dataset.label || 'Code · Código';
+        var html = '<div><div class="label">' + label + '</div><pre><code>' + highlight(src) + '</code></pre></div>';
+        if (!ex.hasAttribute('data-no-result')) {
+            html += '<div><div class="label">Result · Resultado</div><div class="result">' + src + '</div></div>';
+        } else {
+            ex.style.gridTemplateColumns = '1fr';
+        }
+        ex.innerHTML = html;
+    });
+
+    // Don't let example forms reload the page
+    document.addEventListener('submit', function (e) { e.preventDefault(); });
+</script>
+</body>
+</html>
