@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex/Grid/Position examples</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="./flexGridExamples.js" defer></script>
+</head>
+<body>
+    <div class="example">
+        <p class="caption">The base CSS for this page.</p>
+        <div id="example_0" class="content">
+            <style>
+                * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                    font-family: sans-serif;
+                }
+
+                main {
+                    width: 1200px;
+                    margin: 3rem auto;
+                    min-width: 320px;
+                    max-width: min(1200px, calc(100% - 2rem));
+                    position: relative;
+
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3rem;
+                }
+
+                #resizer {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: -.75rem;
+                    width: .5rem;
+                    border-radius: .25rem;
+                    background-color: #999;
+                    cursor: ew-resize;
+                    touch-action: none;
+
+                    &:hover {
+                        background-color: #555;
+                    }
+                }
+
+                #resizer-tooltip {
+                    position: fixed;
+                    top: 50%;
+                    transform: translate(-100%, -50%);
+                    padding: .25rem .5rem;
+                    background-color: black;
+                    color: white;
+                    font-size: .75rem;
+                    white-space: nowrap;
+                    pointer-events: none;
+                }
+
+                code, code * {
+                    font-family: monospace;
+                }
+
+                pre {
+                    background-color: #111;
+                    color: #eee;
+                }
+
+                main .example {
+                    background-image: linear-gradient(rgb(216, 216, 216), rgb(236, 235, 235));
+                    padding: 1rem;
+                    border-radius: 1rem;
+                }
+            </style>
+        </div>
+    </div>
+    <main>
+        <!-- example 1 -->
+        <div class="example">
+            <h2>Example 1: Simple header</h2>
+            <p class="caption">A simple header with navbar.</p>
+            <div id="example-1" class="content">
+                <style>
+                    #example-1 header {
+                        background-color: tan;
+                        padding: 1rem;
+                        display: flex;
+                        align-items: end;
+                        justify-content: space-between;
+                    }
+
+                    #example-1 header nav {
+                        display: flex;
+                        gap: 1rem;
+
+                        & a {
+                            padding: .5rem;
+                            background-color: brown;
+                            color: white;
+                            text-decoration: none;
+
+                            &:hover {
+                                background-color: black;
+                            }
+                        }
+                    }
+                </style>
+                <header>
+                    <div id="logo-area">
+                        <h1>Doug's Tacos</h1>
+                        <p>Authentic Mexican & Texmex Food</p>
+                    </div>
+                    <nav>
+                        <a href="#">Home</a>
+                        <a href="#">Order</a>
+                        <a href="#">Contact</a>
+                    </nav>
+                </header>
+            </div>
+        </div>
+        <!-- example 2 -->
+        <div class="example">
+            <h2>Example 2: Wrapping tags</h2>
+            <p class="caption">flex-wrap lets items move to the next line when they run out of room.</p>
+            <div id="example-2" class="content">
+                <style>
+                    #example-2 ul {
+                        list-style: none;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: .5rem;
+                    }
+
+                    #example-2 li {
+                        padding: .25rem .75rem;
+                        background-color: brown;
+                        color: white;
+                        border-radius: 1rem;
+                    }
+                </style>
+                <ul>
+                    <li>Tacos</li>
+                    <li>Burritos</li>
+                    <li>Enchiladas</li>
+                    <li>Quesadillas</li>
+                    <li>Tamales</li>
+                    <li>Nachos</li>
+                    <li>Fajitas</li>
+                    <li>Chimichangas</li>
+                    <li>Tostadas</li>
+                    <li>Flautas</li>
+                    <li>Gorditas</li>
+                    <li>Sopes</li>
+                </ul>
+            </div>
+        </div>
+        <!-- example 3 -->
+        <div class="example">
+            <h2>Example 3: Sidebar that stacks</h2>
+            <p class="caption">The sidebar sits beside the article until there isn't room, then wraps above it. The large flex-grow on the article makes it take all the spare space.</p>
+            <div id="example-3" class="content">
+                <style>
+                    #example-3 .layout {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+
+                    #example-3 aside {
+                        flex: 1 1 200px;
+                        padding: 1rem;
+                        background-color: tan;
+                    }
+
+                    #example-3 article {
+                        flex: 999 1 400px;
+                        padding: 1rem;
+                        background-color: white;
+                    }
+                </style>
+                <div class="layout">
+                    <aside>
+                        <p>Sidebar</p>
+                    </aside>
+                    <article>
+                        <p>The article. Make the page narrower than about 620px and the sidebar wraps onto its own line.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <!-- example 4 -->
+        <div class="example">
+            <h2>Example 4: Centering</h2>
+            <p class="caption">justify-content centers on the main axis, align-items centers on the cross axis.</p>
+            <div id="example-4" class="content">
+                <style>
+                    #example-4 .box {
+                        height: 200px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: tan;
+                    }
+
+                    #example-4 .box p {
+                        padding: 1rem;
+                        background-color: brown;
+                        color: white;
+                    }
+                </style>
+                <div class="box">
+                    <p>Dead center</p>
+                </div>
+            </div>
+        </div>
+        <!-- example 5 -->
+        <div class="example">
+            <h2>Example 5: Equal-height cards</h2>
+            <p class="caption">Cards in a row stretch to the same height. Each card is also a flex column, and margin-top: auto pushes its button to the bottom.</p>
+            <div id="example-5" class="content">
+                <style>
+                    #example-5 .cards {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+
+                    #example-5 .card {
+                        flex: 1 1 200px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: .5rem;
+                        padding: 1rem;
+                        background-color: white;
+                    }
+
+                    #example-5 .card button {
+                        margin-top: auto;
+                        padding: .5rem;
+                    }
+                </style>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Taco</h3>
+                        <p>Short description.</p>
+                        <button>Order</button>
+                    </div>
+                    <div class="card">
+                        <h3>Burrito</h3>
+                        <p>A much longer description that takes up several lines, so this card is taller than the others.</p>
+                        <button>Order</button>
+                    </div>
+                    <div class="card">
+                        <h3>Nachos</h3>
+                        <p>Medium-length description of some nachos.</p>
+                        <button>Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- example 6 -->
+        <div class="example">
+            <h2>Example 6: Responsive gallery</h2>
+            <p class="caption">repeat(auto-fit, minmax(150px, 1fr)) fits as many 150px+ columns as it can, with no media queries.</p>
+            <div id="example-6" class="content">
+                <style>
+                    #example-6 .gallery {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                        gap: 1rem;
+                    }
+
+                    #example-6 .gallery div {
+                        aspect-ratio: 1;
+                        display: grid;
+                        place-items: center;
+                        background-color: tan;
+                    }
+                </style>
+                <div class="gallery">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                </div>
+            </div>
+        </div>
+        <!-- example 7 -->
+        <div class="example">
+            <h2>Example 7: Page layout with named areas</h2>
+            <p class="caption">grid-template-areas names each region. A container query switches to three columns when the example is at least 700px wide.</p>
+            <div id="example-7" class="content">
+                <style>
+                    #example-7 {
+                        container-type: inline-size;
+                    }
+
+                    #example-7 .page {
+                        display: grid;
+                        gap: .5rem;
+                        grid-template-areas:
+                            "header"
+                            "nav"
+                            "main"
+                            "aside"
+                            "footer";
+                    }
+
+                    @container (min-width: 700px) {
+                        #example-7 .page {
+                            grid-template-columns: 150px 1fr 150px;
+                            grid-template-areas:
+                                "header header header"
+                                "nav main aside"
+                                "footer footer footer";
+                        }
+                    }
+
+                    #example-7 .page > * {
+                        padding: 1rem;
+                        background-color: tan;
+                    }
+
+                    #example-7 header { grid-area: header; }
+                    #example-7 nav { grid-area: nav; }
+                    #example-7 .main { grid-area: main; height: 150px; }
+                    #example-7 aside { grid-area: aside; }
+                    #example-7 footer { grid-area: footer; }
+                </style>
+                <div class="page">
+                    <header>Header</header>
+                    <nav>Nav</nav>
+                    <div class="main">Main</div>
+                    <aside>Aside</aside>
+                    <footer>Footer</footer>
+                </div>
+            </div>
+        </div>
+        <!-- example 8 -->
+        <div class="example">
+            <h2>Example 8: Spanning tiles</h2>
+            <p class="caption">Tiles span multiple columns or rows. grid-auto-flow: dense backfills the gaps that spanning leaves behind.</p>
+            <div id="example-8" class="content">
+                <style>
+                    #example-8 .dashboard {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                        grid-auto-rows: 100px;
+                        grid-auto-flow: dense;
+                        gap: .5rem;
+                    }
+
+                    #example-8 .dashboard div {
+                        padding: .5rem;
+                        background-color: tan;
+                    }
+
+                    #example-8 .wide { grid-column: span 2; }
+                    #example-8 .tall { grid-row: span 2; }
+                    #example-8 .big { grid-column: span 2; grid-row: span 2; }
+                </style>
+                <div class="dashboard">
+                    <div class="big">big</div>
+                    <div>1</div>
+                    <div class="wide">wide</div>
+                    <div>2</div>
+                    <div class="tall">tall</div>
+                    <div>3</div>
+                    <div class="wide">wide</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div class="tall">tall</div>
+                    <div>6</div>
+                </div>
+            </div>
+        </div>
+        <!-- example 9 -->
+        <div class="example">
+            <h2>Example 9: Overlapping in one cell</h2>
+            <p class="caption">Putting two items in the same grid cell stacks them on top of each other, no positioning needed.</p>
+            <div id="example-9" class="content">
+                <style>
+                    #example-9 .hero {
+                        display: grid;
+                    }
+
+                    #example-9 .hero > * {
+                        grid-area: 1 / 1;
+                    }
+
+                    #example-9 .background {
+                        height: 200px;
+                        background-image: linear-gradient(tan, brown);
+                    }
+
+                    #example-9 .text {
+                        align-self: end;
+                        justify-self: start;
+                        margin: 1rem;
+                        padding: .5rem 1rem;
+                        background-color: white;
+                    }
+                </style>
+                <div class="hero">
+                    <div class="background"></div>
+                    <h3 class="text">Text on top of the background</h3>
+                </div>
+            </div>
+        </div>
+        <!-- example 10 -->
+        <div class="example">
+            <h2>Example 10: Form layout</h2>
+            <p class="caption">A two-column grid lines up labels and inputs. max-content makes the label column as wide as the longest label.</p>
+            <div id="example-10" class="content">
+                <style>
+                    #example-10 form {
+                        display: grid;
+                        grid-template-columns: max-content 1fr;
+                        gap: .5rem 1rem;
+                        align-items: center;
+                    }
+
+                    #example-10 input,
+                    #example-10 textarea {
+                        padding: .5rem;
+                    }
+
+                    #example-10 button {
+                        grid-column: 2;
+                        justify-self: start;
+                        padding: .5rem 1rem;
+                    }
+                </style>
+                <form>
+                    <label for="ex10-name">Name</label>
+                    <input id="ex10-name" type="text">
+                    <label for="ex10-email">Email address</label>
+                    <input id="ex10-email" type="email">
+                    <label for="ex10-message">Message</label>
+                    <textarea id="ex10-message" rows="3"></textarea>
+                    <button type="button">Send</button>
+                </form>
+            </div>
+        </div>
+        <!-- example 11 -->
+        <div class="example">
+            <h2>Example 11: Notification badge</h2>
+            <p class="caption">position: relative on the button makes it the reference point for the absolutely positioned badge.</p>
+            <div id="example-11" class="content">
+                <style>
+                    #example-11 .cart {
+                        position: relative;
+                        padding: 1rem;
+                        border: none;
+                        background-color: brown;
+                        color: white;
+                    }
+
+                    #example-11 .badge {
+                        position: absolute;
+                        top: -.5rem;
+                        right: -.5rem;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        display: grid;
+                        place-items: center;
+                        border-radius: 50%;
+                        background-color: red;
+                        font-size: .75rem;
+                    }
+                </style>
+                <button class="cart">
+                    Cart
+                    <span class="badge">3</span>
+                </button>
+            </div>
+        </div>
+        <!-- example 12 -->
+        <div class="example">
+            <h2>Example 12: Sticky headings</h2>
+            <p class="caption">Scroll the box. Each heading sticks to the top until its section scrolls out and the next heading pushes it away.</p>
+            <div id="example-12" class="content">
+                <style>
+                    #example-12 .list {
+                        height: 200px;
+                        overflow-y: auto;
+                        background-color: white;
+                    }
+
+                    #example-12 h3 {
+                        position: sticky;
+                        top: 0;
+                        padding: .25rem .5rem;
+                        background-color: tan;
+                    }
+
+                    #example-12 li {
+                        list-style: none;
+                        padding: .25rem .5rem;
+                    }
+                </style>
+                <div class="list">
+                    <section>
+                        <h3>B</h3>
+                        <ul>
+                            <li>Birria</li>
+                            <li>Burrito</li>
+                            <li>Buñuelo</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>C</h3>
+                        <ul>
+                            <li>Carnitas</li>
+                            <li>Chalupa</li>
+                            <li>Chilaquiles</li>
+                            <li>Churro</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>E</h3>
+                        <ul>
+                            <li>Elote</li>
+                            <li>Empanada</li>
+                            <li>Enchilada</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>T</h3>
+                        <ul>
+                            <li>Taco</li>
+                            <li>Tamal</li>
+                            <li>Torta</li>
+                            <li>Tostada</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- example 13 -->
+        <div class="example">
+            <h2>Example 13: Fixed button</h2>
+            <p class="caption">position: fixed places an element relative to the window, so it stays put while the page scrolls.</p>
+            <div id="example-13" class="content">
+                <style>
+                    #example-13 a {
+                        position: fixed;
+                        bottom: 1rem;
+                        left: 1rem;
+                        padding: .5rem 1rem;
+                        background-color: brown;
+                        color: white;
+                        text-decoration: none;
+                    }
+                </style>
+                <p>Look in the bottom-left corner of the window.</p>
+                <a href="#">Back to top</a>
+            </div>
+        </div>
+        <!-- example 14 -->
+        <div class="example">
+            <h2>Example 14: Tooltip</h2>
+            <p class="caption">The tooltip is absolutely positioned above its parent. left: 50% plus translateX(-50%) centers it horizontally.</p>
+            <div id="example-14" class="content">
+                <style>
+                    #example-14 {
+                        padding-top: 2rem;
+                    }
+
+                    #example-14 .tooltip {
+                        position: relative;
+                        display: inline-block;
+                        padding: .5rem 1rem;
+                        background-color: tan;
+                    }
+
+                    #example-14 .tooltip-text {
+                        position: absolute;
+                        bottom: calc(100% + .5rem);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        padding: .25rem .5rem;
+                        background-color: black;
+                        color: white;
+                        white-space: nowrap;
+                        display: none;
+                    }
+
+                    #example-14 .tooltip:hover .tooltip-text {
+                        display: block;
+                    }
+                </style>
+                <span class="tooltip">
+                    Hover me
+                    <span class="tooltip-text">I'm absolutely positioned</span>
+                </span>
+            </div>
+        </div>
+        <!-- example 15 -->
+        <div class="example">
+            <h2>Example 15: Hover overlay</h2>
+            <p class="caption">inset: 0 is shorthand for top, right, bottom and left: 0, so the overlay covers its whole parent.</p>
+            <div id="example-15" class="content">
+                <style>
+                    #example-15 .photo {
+                        position: relative;
+                        height: 200px;
+                        background-image: linear-gradient(tan, brown);
+                    }
+
+                    #example-15 .overlay {
+                        position: absolute;
+                        inset: 0;
+                        display: flex;
+                        align-items: end;
+                        padding: 1rem;
+                        background-color: rgba(0, 0, 0, .5);
+                        color: white;
+                        opacity: 0;
+                    }
+
+                    #example-15 .photo:hover .overlay {
+                        opacity: 1;
+                    }
+                </style>
+                <div class="photo">
+                    <p class="overlay">Hover caption</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
