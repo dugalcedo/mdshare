@@ -8,64 +8,46 @@ Rules:
 - Every function in these challenges is `async`, so you have to `await` it when you call it.
 
 ```js
-console.log(await getTypes("pikachu"));
+console.log(await getNeighbours("germany"));
 ```
 
-If a request fails (for example, the Pokémon doesn't exist), `response.ok` is `false`. Check it before you call `response.json()`.
+If a request fails (for example, the thing you searched for doesn't exist), `response.ok` is `false`. Check it before you call `response.json()`.
 
-## PokéAPI
+Open each URL in your browser first to see what the data looks like.
+
+## 1. REST Countries
+
+Docs: https://restcountries.com
+
+Define a function `getNeighbours(country)` that returns an array of the names of the countries that share a border with it, sorted from biggest population to smallest. Return `null` if the country isn't found.
+
+You need two requests:
+
+1. `https://restcountries.com/v3.1/name/{country}?fullText=true` to get the country. It comes back as an array with one country in it. Its `borders` property is an array of 3-letter codes like `"FRA"`. Countries with no neighbours might not have `borders` at all.
+2. `https://restcountries.com/v3.1/alpha?codes=FRA,POL,AUT` to get all the neighbours in one request.
+
+Use `join`, `sort` and `map`.
+
+```js
+await getNeighbours("germany");
+// ["France", "Poland", "Netherlands", "Belgium", "Czechia", "Austria", "Switzerland", "Denmark", "Luxembourg"]
+
+await getNeighbours("sweden"); // ["Norway", "Finland"]
+await getNeighbours("iceland"); // []
+await getNeighbours("narnia"); // null
+```
+
+## 2. PokéAPI
 
 Docs: https://pokeapi.co/docs/v2
 
-Get one Pokémon with `https://pokeapi.co/api/v2/pokemon/{name}`. The name must be lowercase. Open the URL in your browser first to see what the data looks like.
+Define a function `getWeaknesses(name)` that returns the types that do at least double damage to a Pokémon. Return `null` if the Pokémon isn't found.
 
-### 1
+Get the Pokémon with `https://pokeapi.co/api/v2/pokemon/{name}`. The name must be lowercase.
 
-Define a function `getTypes(name)` that returns an array of the Pokémon's type names. Return `null` if the Pokémon isn't found.
+Each type in the Pokémon data has a URL like `https://pokeapi.co/api/v2/type/fire`. Fetch all of the Pokémon's types at the same time, not one after another: use `map` to make an array of promises, then `await Promise.all(...)` to get an array of results.
 
-Use `map`.
-
-```js
-await getTypes("pikachu"); // ["electric"]
-await getTypes("charizard"); // ["fire", "flying"]
-await getTypes("agumon"); // null
-```
-
-### 2
-
-Define a function `getStatSummary(name)` that returns an object with two properties:
-
-- `total`: all of the Pokémon's base stats added together
-- `highest`: the name of its highest stat
-
-Return `null` if the Pokémon isn't found.
-
-Use `reduce` for both.
-
-```js
-await getStatSummary("pikachu"); // { total: 320, highest: "speed" }
-await getStatSummary("charizard"); // { total: 534, highest: "special-attack" }
-await getStatSummary("agumon"); // null
-```
-
-### 3
-
-Define a function `getHeaviest(names)` that takes an array of names and returns a string with the heaviest Pokémon's name and weight in kg. The API gives weight in hectograms, so divide it by 10.
-
-Return `null` if any of the Pokémon aren't found.
-
-Fetch them all at the same time, not one after another. Use `map` to make an array of promises, then `await Promise.all(...)` to get an array of results. Then use `some` and `reduce`.
-
-```js
-await getHeaviest(["pikachu", "snorlax", "onix"]); // "snorlax (460 kg)"
-await getHeaviest(["pikachu", "agumon"]); // null
-```
-
-### 4
-
-Define a function `getWeaknesses(name)` that returns the types that do at least double damage to the Pokémon. Return `null` if the Pokémon isn't found.
-
-Each type in the Pokémon data has a URL like `https://pokeapi.co/api/v2/type/fire`. Fetch every one of the Pokémon's types (at the same time, like in challenge 3). Each type has a `damage_relations` object:
+Each type has a `damage_relations` object:
 
 - `double_damage_from`: these types do 2× damage
 - `half_damage_from`: these types do 0.5× damage
@@ -75,7 +57,7 @@ For a Pokémon with two types, multiply. Charizard is fire and flying. Rock does
 
 Return an array of objects sorted from highest multiplier to lowest. The order of types with the same multiplier doesn't matter.
 
-Use as many higher-order methods as you can. You'll probably want `map`, `forEach` or `reduce`, `filter` and `sort`. `Object.entries` turns an object into an array, so you can use them on objects too.
+Use as many higher-order methods as you can. `Object.entries` turns an object into an array, so you can use them on objects too.
 
 ```js
 await getWeaknesses("pikachu");
@@ -94,11 +76,99 @@ await getWeaknesses("bulbasaur");
 await getWeaknesses("agumon"); // null
 ```
 
-## Open-Meteo
+## Pagination
+
+APIs don't send you thousands of results at once. They send one page at a time, and you have to ask for the next page yourself. `await` works inside loops, so you can keep fetching until there are no pages left.
+
+There are two common ways to do it, and the next two challenges use one each.
+
+## 3. Gutendex
+
+Docs: https://gutendex.com
+
+Gutendex is an API for the free books on Project Gutenberg. It gives you a URL for the next page.
+
+`https://gutendex.com/books?search=dickens` gets the first page of books whose title or author matches "dickens". The data has:
+
+- `results`: up to 32 books
+- `next`: the URL of the next page, or `null` on the last page
+- `count`: how many books there are on all the pages together
+
+Define a function `getBookReport(search)` that gets every page and returns an object with:
+
+- `total`: how many books you got. It should be the same as `count`. If it isn't, you missed a page.
+- `languages`: how many books there are in each language. A book's `languages` is an array, so one book can count towards more than one language. Use `reduce`.
+- `mostDownloaded`: the title of the book with the highest `download_count`. Use `reduce`.
+
+If no books are found, `count` is `0`. Return `null`.
+
+```js
+await getBookReport("dickens");
+// {
+//   total: 104,
+//   languages: { en: 96, fr: 3, de: 2, fi: 3 },
+//   mostDownloaded: "A Christmas Carol in Prose; Being a Ghost Story of Christmas",
+// }
+
+await getBookReport("asdfghjkl"); // null
+```
+
+The numbers above are made up. Check yours against `count`.
+
+## 4. MusicBrainz
+
+Docs: https://musicbrainz.org/doc/MusicBrainz_API
+
+This API gives you a total, and you work out the pages yourself with `limit` and `offset`. `limit=25&offset=0` is the first 25, `limit=25&offset=25` is the next 25, and so on.
+
+Define a function `getDiscography(artist)` that returns an artist's studio albums as strings, oldest first. Return `null` if the artist isn't found.
+
+You need to do this:
+
+1. Search for the artist with `https://musicbrainz.org/ws/2/artist?query={artist}&fmt=json`. Assume the first result in `artists` is the right one, and take its `id`. If `artists` is empty, return `null`.
+2. Get the artist's albums with `https://musicbrainz.org/ws/2/release-group?artist={id}&type=album&limit=25&offset={offset}&fmt=json`. Keep increasing `offset` until you have all of them. `release-group-count` tells you how many there are in total.
+3. Studio albums are the ones whose `secondary-types` array is empty. The others are live albums, compilations, etc.
+
+Some property names have dashes in them, so you need square brackets: `data["release-groups"]`.
+
+MusicBrainz blocks you if you send more than one request per second. Wait between requests with this helper:
+
+```js
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+await wait(1000);
+```
+
+If you run this outside the browser, MusicBrainz also wants a `User-Agent` header that says who you are:
+
+```js
+await fetch(url, { headers: { "User-Agent": "MatteoPractice/1.0" } });
+```
+
+Use `filter`, `sort` and `map`.
+
+```js
+await getDiscography("radiohead");
+// [
+//   "1993: Pablo Honey",
+//   "1995: The Bends",
+//   "1997: OK Computer",
+//   "2000: Kid A",
+//   "2001: Amnesiac",
+//   "2003: Hail to the Thief",
+//   "2007: In Rainbows",
+//   "2011: The King of Limbs",
+//   "2016: A Moon Shaped Pool",
+// ]
+
+await getDiscography("asdfghjkl"); // null
+```
+
+Anyone can edit MusicBrainz, so your list might be a little different.
+
+## 5. Open-Meteo
 
 No higher-order methods needed for this one.
-
-### 5
 
 Define a function `getWeatherReport(place)` that returns a string describing the weather right now in that place. Return `null` if the place isn't found.
 
