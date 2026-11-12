@@ -8,34 +8,40 @@ Rules:
 - Every function in these challenges is `async`, so you have to `await` it when you call it.
 
 ```js
-console.log(await getNeighbours("germany"));
+console.log(await getTopEpisodes("breaking bad", 3));
 ```
 
 If a request fails (for example, the thing you searched for doesn't exist), `response.ok` is `false`. Check it before you call `response.json()`.
 
 Open each URL in your browser first to see what the data looks like.
 
-## 1. REST Countries
+## 1. TVmaze
 
-Docs: https://restcountries.com
+Docs: https://www.tvmaze.com/api
 
-Define a function `getNeighbours(country)` that returns an array of the names of the countries that share a border with it, sorted from biggest population to smallest. Return `null` if the country isn't found.
+Define a function `getTopEpisodes(show, count)` that returns the `count` highest-rated episodes of a TV show as strings. Return `null` if the show isn't found.
 
 You need two requests:
 
-1. `https://restcountries.com/v3.1/name/{country}?fullText=true` to get the country. It comes back as an array with one country in it. Its `borders` property is an array of 3-letter codes like `"FRA"`. Countries with no neighbours might not have `borders` at all.
-2. `https://restcountries.com/v3.1/alpha?codes=FRA,POL,AUT` to get all the neighbours in one request.
+1. `https://api.tvmaze.com/singlesearch/shows?q={show}` to get the show and its `id`. If nothing is found, you get a 404.
+2. `https://api.tvmaze.com/shows/{id}/episodes` to get every episode. Each one has `season`, `number`, `name` and `rating.average`. Some episodes have no rating yet (`null`), so leave those out.
 
-Use `join`, `sort` and `map`.
+Format each episode like `S05E14: Ozymandias (9.6)`. `padStart` adds the zeros: `String(5).padStart(2, "0")` gives `"05"`.
+
+Use `filter`, `sort` and `map`.
 
 ```js
-await getNeighbours("germany");
-// ["France", "Poland", "Netherlands", "Belgium", "Czechia", "Austria", "Switzerland", "Denmark", "Luxembourg"]
+await getTopEpisodes("breaking bad", 3);
+// [
+//   "S05E14: Ozymandias (9.6)",
+//   "S05E16: Felina (9.4)",
+//   "S05E13: To'hajiilee (9.3)",
+// ]
 
-await getNeighbours("sweden"); // ["Norway", "Finland"]
-await getNeighbours("iceland"); // []
-await getNeighbours("narnia"); // null
+await getTopEpisodes("asdfghjkl", 3); // null
 ```
+
+The ratings above are made up. Yours will come from TVmaze.
 
 ## 2. PokéAPI
 
