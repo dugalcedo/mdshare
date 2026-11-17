@@ -308,7 +308,7 @@ Design the app's schema in a `schema.sql` file, with at least two related tables
     - `python-dotenv` — https://pypi.org/project/python-dotenv/
     - never commit `.env`!
 - [ ] Connecting & cursors
-    - `psycopg.connect()`
+    - `psycopg.connect()` 
     - `conn.execute()` / `cur.execute()`
     - `fetchone()`, `fetchall()`
     - https://www.psycopg.org/psycopg3/docs/basic/usage.html
