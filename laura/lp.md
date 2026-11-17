@@ -16,7 +16,7 @@ All the section projects build ONE app that grows over time. Theme: **TBD** (rec
 
 - [ ] How to type (ideally 30+ WPM) — https://www.keybr.com/
 - [ ] How to use VSCode
-- [ ] How to use the Live Share extension (if taking lessons) — https://code.visualstudio.com/learn/collaboration/live-share
+- [ ] How to use the Live Share extension (if taking lessons) — https://learn.microsoft.com/en-us/visualstudio/liveshare/use/vscode
 - [ ] How to study on w3schools — https://www.w3schools.com/python/
 
 ---
